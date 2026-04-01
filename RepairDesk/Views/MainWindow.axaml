@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RepairDesk.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RepairDesk.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        MaxWidth="400"
+        MaxHeight="100"
+        MinHeight="100"
+        MinWidth="400"
+        Title="RepairDesk">
+        
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top"> 
+            <TextBlock Text="Вход" FontSize="20" HorizontalAlignment="Left" Margin="10"/>
+
+            <TextBox 
+                Watermark="Введите код сотрудника"
+                Text="{Binding SellerCode}" 
+                IsEnabled="{Binding !IsLoading}"
+                Width="300"
+                Height="20"
+                Margin="10 0  0 0"/>
+        </StackPanel>
+            <TextBlock 
+                Text="{Binding ErrorMessage}" 
+                Foreground="Red" 
+                TextWrapping="Wrap"
+                IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+            <Button Content="Войти" Command="{Binding LoginCommand}" 
+                    IsEnabled="{Binding !IsLoading}" Width="369" 
+                    HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 50 13 0" HorizontalContentAlignment="Center"/>
+    </Grid>
+</Window>

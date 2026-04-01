@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450"
+        x:Class="RepairDesk.Views.SellerWindow"
+        MinHeight="300"
+        MinWidth="1000"
+        Title="SellerWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+        <RowDefinition Height="*"/> 
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/> 
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Background="Transparent">
+            <StackPanel>
+                <TextBlock Text="ФИО Сотрудника" Margin="10 10 0 0"/>
+                <TextBox Margin="10" Text="Глеб саныч"/>
+                <TextBlock Text="Код Сотрудника" Margin="10 10 0 0"/>
+                <TextBox Margin="10" Text="Виталий Палыч"/>
+            </StackPanel>
+            
+            <StackPanel Margin="20">
+                <Button x:Name="OrderBtn" Content="Создать заказ" Click="OnOrderClick" Margin="0,0,0,10"/>
+                <Button x:Name="CashBtn" Content="Касса" Click="OnCashClick" Margin="0,0,0,10"/>
+                <Button x:Name="WarrantyBtn" Content="Гарантийное обслуживание" Click="OnWarrantyClick" Margin="0,0,0,10"/>
+                <Button x:Name="SalaryBtn" Content="Расчет зарплаты" Click="OnSalaryClick" Margin="0,0,0,10"/>
+            </StackPanel>
+            
+            <StackPanel Margin="10 0">
+                <Button Content="Сменить аккаунт" Margin="0 10" x:Name="AccountBtn"/>
+                <Button Content="Открыть смену/Закрыть смену" VerticalAlignment="Bottom"/> <!--Обработчик добавлю позже, надписи меняются местами в  зависимости от статуса смены (или открыта или закрыта)-->
+            </StackPanel>
+        </StackPanel>
+        
+        <Border Grid.Column="1"
+                Background="Black">
+            <ContentControl x:Name="MainContentArea"/>
+        </Border>
+    </Grid>
+</Window>
