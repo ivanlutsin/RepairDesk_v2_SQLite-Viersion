@@ -41,7 +41,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Views\MakerFunction\" />
+      <Folder Include="Views\MakerFunction\Quick_access\Notes\" />
+      <Folder Include="Views\MakerFunction\Quick_access\Soft\desktop\" />
+      <Folder Include="Views\MakerFunction\Quick_access\Soft\Mobile\" />
+      <Folder Include="Views\MakerFunction\Quick_access\Technical_documentation\" />
       <Folder Include="Views\SellerFunction\SellerViewModel\" />
     </ItemGroup>
 </Project>

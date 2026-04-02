@@ -18,7 +18,7 @@
                 </Grid.ColumnDefinitions>
                 
                 
-                <StackPanel Margin="10 10 0 0" Background="Aquamarine">
+                <StackPanel Margin="10 10 0 0" Background="WhiteSmoke">
                         <TextBlock Text="Инженер:"/>
                         <TextBlock x:Name="engineerName" Text="Временная заглушка с именем"/>
                         
@@ -65,10 +65,9 @@
                                                 <MenuItem Header="Диагностика и ремонт" Background="LightGray">
                                                         <MenuItem Header="Чек лист по моделям/отчет"/>
                                                         <MenuItem Header="База типовых проблем, по моделям"/>
-                                                        <MenuItem Header="Фотофиксация"/> <!--хз вообще как сделать, думаю-->
+                                                        <!--MenuItem Header="Фотофиксация"/> хз вообще как сделать, думаю-->
                                                         <MenuItem Header="Сформировать отчет по работе"/> <!--возможно API Ollama AI-->
                                                         <MenuItem Header="Запчасти"/> <!--типо, чтобы здесь можно было выбрать заказ из тех которые ты уже начал делать и привязать к ниму какую нибудь деталь. К примеру - есть у нас на складе аккумулятор на Xiaomi poco ultra mega super max рекс ко мне. И мы должны будем привязать номер этой детали к этому телефону. -->
-                                                        
                                                 </MenuItem>
                                         </Menu>
                                 </DockPanel>
