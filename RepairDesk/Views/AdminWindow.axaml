@@ -6,8 +6,25 @@
         x:Class="RepairDesk.Views.AdminWindow"
         Title="AdminWindow">
     <Grid>
-        <StackPanel>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/> 
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/> 
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Margin="5">
+            <Button Content="Заказы" Width="150" HorizontalContentAlignment="Center" Click="AdminOrderClick"/>
+            <Button Content="Склад" Width="150" HorizontalContentAlignment="Center" Click="StoreClick"/>
+            <Button Content="Инженеры" Width="150" HorizontalContentAlignment="Center" Click="EngenierClick"/>
+            <Button Content="Устройства" Width="150" HorizontalContentAlignment="Center" Click="DeviceClick"/>
+            <Button Content="Финансы" Width="150" HorizontalContentAlignment="Center" Click="FinanceClick"/>
         </StackPanel>
+        
+        <Border Grid.Column="1">
+            <ContentControl x:Name="MainContentArea"/>
+        </Border>
     </Grid>
 </Window>

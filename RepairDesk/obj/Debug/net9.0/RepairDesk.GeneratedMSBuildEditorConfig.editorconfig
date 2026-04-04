@@ -26,6 +26,21 @@ build_property.EnableCodeStyleSeverity =
 [D:/Software/RepairDesk/RepairDesk/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/AdminOrders.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Devices.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Engineers.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Finance.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Store.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [D:/Software/RepairDesk/RepairDesk/Views/AdminWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

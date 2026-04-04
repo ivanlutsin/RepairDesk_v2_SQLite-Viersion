@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace RepairDesk.Views.AdminFunction;
 
-public partial class AdminOrders : Window
+public partial class AdminOrders : UserControl
 {
     public AdminOrders()
     {

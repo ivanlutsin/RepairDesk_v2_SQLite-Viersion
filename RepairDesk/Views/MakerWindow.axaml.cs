@@ -17,4 +17,5 @@ public partial class MakerWindow : Window
         InitializeComponent();
         Console.WriteLine($"[MakerWindow] Opened for: {user.FullName}");
     }
+    
 }
