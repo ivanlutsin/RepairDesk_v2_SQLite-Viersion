@@ -27,10 +27,10 @@
                                         <Menu DockPanel.Dock="Top">
                                                 <!-- My applications-->
                                                 <MenuItem Header="Мои заявки" Background="LightGray">
-                                                        <MenuItem Header="Заявки"/>
-                                                        <MenuItem Header="История ремонтов"/>
-                                                        <MenuItem Header="Расчет зарплаты"/>
-                                                        <MenuItem Header="Начало работы/конец"/>
+                                                        <MenuItem Header="Заявки" Click="OrderMaker_Click"/>
+                                                        <MenuItem Header="История ремонтов" Click="History_repair_Click"/>
+                                                        <MenuItem Header="Расчет зарплаты" Click="Salary_Click"/>
+                                                        <MenuItem Header="Начало работы/конец" Click="Working_with_spare_parts_Click"/>
                                                 </MenuItem>
                                         </Menu>
                                 </DockPanel>
@@ -39,8 +39,8 @@
                                         <Menu DockPanel.Dock="Top">
                                                 <!-- Fast access-->
                                                 <MenuItem Header="Быстрый доступ" Background="LightGray">
-                                                        <MenuItem Header="Техническая документация"/>
-                                                        <MenuItem Header="Заметки по ремонту"/>
+                                                        <MenuItem Header="Техническая документация" Click="Tech_dock_click"/>
+                                                        <MenuItem Header="Заметки по ремонту" Click="Notes_click"/>
                                                         <MenuItem Header="Софт">
                                                                 <MenuItem Header="Мобильные устройства"></MenuItem>
                                                                 <MenuItem Header="Компьютерные устройства"></MenuItem>
@@ -53,8 +53,8 @@
                                         <Menu DockPanel.Dock="Top">
                                                 <!-- working with spare parts-->
                                                 <MenuItem Header="Работа с запчастями" Background="LightGray">
-                                                        <MenuItem Header="Проверка на складе запчастей"/>
-                                                        <MenuItem Header="Создание заявок на заказ запчастей"/>
+                                                        <MenuItem Header="Проверка на складе запчастей" Click="Spare_Parts_click"/>
+                                                        <MenuItem Header="Создание заявок на заказ запчастей" Click="Create_a_new_order_click"/>
                                                 </MenuItem>
                                         </Menu>
                                 </DockPanel>
@@ -63,11 +63,11 @@
                                         <Menu DockPanel.Dock="Top">
                                                 <!-- Diagnostics and repair-->
                                                 <MenuItem Header="Диагностика и ремонт" Background="LightGray">
-                                                        <MenuItem Header="Чек лист по моделям/отчет"/>
-                                                        <MenuItem Header="База типовых проблем, по моделям"/>
+                                                        <MenuItem Header="Чек лист по моделям/отчет" Click="CheckList_Click"/>
+                                                        <MenuItem Header="База типовых проблем, по моделям" Click="Base_tipical_problems_Click"/>
                                                         <!--MenuItem Header="Фотофиксация"/> хз вообще как сделать, думаю-->
-                                                        <MenuItem Header="Сформировать отчет по работе"/> <!--возможно API Ollama AI-->
-                                                        <MenuItem Header="Запчасти"/> <!--типо, чтобы здесь можно было выбрать заказ из тех которые ты уже начал делать и привязать к ниму какую нибудь деталь. К примеру - есть у нас на складе аккумулятор на Xiaomi poco ultra mega super max рекс ко мне. И мы должны будем привязать номер этой детали к этому телефону. -->
+                                                        <MenuItem Header="Сформировать отчет по работе" Click="Create_Report_Click"/> <!--возможно API Ollama AI-->
+                                                        <MenuItem Header="Запчасти" Click="Repair_Click"/> <!--типо, чтобы здесь можно было выбрать заказ из тех которые ты уже начал делать и привязать к ниму какую нибудь деталь. К примеру - есть у нас на складе аккумулятор на Xiaomi poco ultra mega super max рекс ко мне. И мы должны будем привязать номер этой детали к этому телефону. -->
                                                 </MenuItem>
                                         </Menu>
                                 </DockPanel>

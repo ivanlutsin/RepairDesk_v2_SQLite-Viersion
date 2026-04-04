@@ -41,8 +41,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModels\AdminFunctionViewModel\" />
-      <Folder Include="ViewModels\SellerFunctionViewModel\" />
       <Folder Include="Views\MakerFunction\Quick_access\Soft\desktop\" />
       <Folder Include="Views\MakerFunction\Quick_access\Soft\Mobile\" />
     </ItemGroup>
