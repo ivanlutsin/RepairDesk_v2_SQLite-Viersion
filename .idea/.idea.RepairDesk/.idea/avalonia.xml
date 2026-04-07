@@ -8,12 +8,26 @@
         <entry key="RepairDesk/Views/AdminFunction/Devices.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Engineers.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Finance.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Notes_Phone.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Store.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/DebugWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/MainWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Diagnostic_and_repair/Create_a_report/Create_a_report.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Diagnostic_and_repair/Spares/SparesWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Diagnostic_and_repair/Typical_problems/Typical_problemsWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/MakerFunction/Diagnostic_and_repair/checklist/CheckListWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/My_Aplication/Application/AplicationWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/My_Aplication/Repair_history/RepaerHistoryWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/My_Aplication/Salary/SalaryWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/My_Aplication/Start_of_work_end/Stat_of_work_endWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Quick_access/Notes/NotesWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Quick_access/Technical_documentation/Tecnical_docWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Working_with_spare_parts/Creating_requests_for_the_order_of_spare_parts/Creating_requests_for_the_order_of_spare_parts.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MakerFunction/Working_with_spare_parts/Inspection_at_the_spare_parts_warehouse/Inspection_at_the_spare_parts_warehouse.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/MakerWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/MinimumForm.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/Minimum_Form.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/SellerFunction/Cash.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/SellerFunction/CreateNewOrder.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/SellerFunction/Sallary_Calculation.axaml" value="RepairDesk/RepairDesk.csproj" />

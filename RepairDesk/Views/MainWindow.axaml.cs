@@ -42,6 +42,7 @@ public partial class MainWindow : Window
                 "Admin" => new AdminWindow(user),
                 "Master" => new MakerWindow(user),
                 "Seller" => new SellerWindow(user),
+                "Form" => new MinimumForm(user),
                 _ => new SellerWindow(user)
             };
 

@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace RepairDesk.Views.MakerFunction.Quick_access.Technical_documentation;
 
-public partial class Tecnical_docWindow : Window
+public partial class Tecnical_docWindow : UserControl
 {
     public Tecnical_docWindow()
     {

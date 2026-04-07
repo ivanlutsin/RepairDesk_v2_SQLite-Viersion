@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace RepairDesk.Views.MakerFunction.Diagnostic_and_repair.Spares;
 
-public partial class SparesWindow : Window
+public partial class SparesWindow : UserControl
 {
     public SparesWindow()
     {

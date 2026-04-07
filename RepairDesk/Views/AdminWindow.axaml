@@ -21,6 +21,7 @@
             <Button Content="Инженеры" Width="150" HorizontalContentAlignment="Center" Click="EngenierClick"/>
             <Button Content="Устройства" Width="150" HorizontalContentAlignment="Center" Click="DeviceClick"/>
             <Button Content="Финансы" Width="150" HorizontalContentAlignment="Center" Click="FinanceClick"/>
+            <Button Content="Телефонная книга" Width="150" HorizontalContentAlignment="Center" Click="Notes_Phone"/>
         </StackPanel>
         
         <Border Grid.Column="1">

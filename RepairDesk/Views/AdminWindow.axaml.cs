@@ -71,4 +71,12 @@ public partial class AdminWindow : Window
             MainContentArea.Content = new Finance();
         }
     }
+
+    private void Notes_Phone(object? sender, RoutedEventArgs e)
+    {
+        if (MainContentArea != null)
+        {
+            MainContentArea.Content = new Notes_Phone();
+        }
+    }
 }

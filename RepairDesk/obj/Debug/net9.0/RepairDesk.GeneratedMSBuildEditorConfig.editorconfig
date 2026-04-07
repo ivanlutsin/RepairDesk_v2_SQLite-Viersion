@@ -38,6 +38,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Finance.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Notes_Phone.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Store.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
@@ -84,6 +87,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [D:/Software/RepairDesk/RepairDesk/Views/MakerWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/Software/RepairDesk/RepairDesk/Views/MinimumForm.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [D:/Software/RepairDesk/RepairDesk/Views/SellerFunction/Cash.axaml]

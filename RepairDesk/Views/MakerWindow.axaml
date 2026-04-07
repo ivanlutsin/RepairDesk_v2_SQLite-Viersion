@@ -30,7 +30,7 @@
                                                         <MenuItem Header="Заявки" Click="OrderMaker_Click"/>
                                                         <MenuItem Header="История ремонтов" Click="History_repair_Click"/>
                                                         <MenuItem Header="Расчет зарплаты" Click="Salary_Click"/>
-                                                        <MenuItem Header="Начало работы/конец" Click="Working_with_spare_parts_Click"/>
+                                                        <MenuItem Header="Начало работы/конец" Click="Start_of_work_end_Click"/>
                                                 </MenuItem>
                                         </Menu>
                                 </DockPanel>
@@ -73,5 +73,8 @@
                                 </DockPanel>
                         </StackPanel>
                 </StackPanel>
+                <Border Grid.Column="1">
+                        <ContentControl x:Name="MainContentArea"/>
+                </Border>
         </Grid>
 </Window>
