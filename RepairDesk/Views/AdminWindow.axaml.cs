@@ -8,6 +8,13 @@ namespace RepairDesk.Views;
 
 public partial class AdminWindow : Window
 {
+    private AdminOrders _adminOrdersPage;
+    private Store _storePage;
+    private Engineers _engineersPage;
+    private Devices _devicesPage;
+    private Finance _financePage;
+    private Notes_Phone _notesPhonePage;
+
     public AdminWindow()
     {
         InitializeComponent();
@@ -34,49 +41,49 @@ public partial class AdminWindow : Window
     
     private void AdminOrderClick(object sender, RoutedEventArgs e)
     {
-        if (MainContentArea != null)
-        {
-            MainContentArea.Content = new AdminOrders();
-        }
+        if (_adminOrdersPage == null)
+            _adminOrdersPage = new AdminOrders();
+
+        MainContentArea.Content = _adminOrdersPage;
     }
     
     private void StoreClick(object sender, RoutedEventArgs e)
     {
-        if (MainContentArea != null)
-        {
-            MainContentArea.Content = new Store();
-        }
+        if (_storePage == null)
+            _storePage = new Store();
+
+        MainContentArea.Content = _storePage;
     }
     
     private void EngenierClick(object sender, RoutedEventArgs e)
     {
-        if (MainContentArea != null)
-        {
-            MainContentArea.Content = new Engineers();
-        }
+        if (_engineersPage == null)
+            _engineersPage = new Engineers();
+
+        MainContentArea.Content = _engineersPage;
     }
     
     private void DeviceClick(object sender, RoutedEventArgs e)
     {
-        if (MainContentArea != null)
-        {
-            MainContentArea.Content = new Devices();
-        }
+        if (_devicesPage == null)
+            _devicesPage = new Devices();
+
+        MainContentArea.Content = _devicesPage;
     }
     
     private void FinanceClick(object sender, RoutedEventArgs e)
     {
-        if (MainContentArea != null)
-        {
-            MainContentArea.Content = new Finance();
-        }
+        if (_financePage == null)
+            _financePage = new Finance();
+
+        MainContentArea.Content = _financePage;
     }
 
-    private void Notes_Phone(object? sender, RoutedEventArgs e)
+    private void Notes_Phone_Click(object? sender, RoutedEventArgs e)
     {
-        if (MainContentArea != null)
-        {
-            MainContentArea.Content = new Notes_Phone();
-        }
+        if (_notesPhonePage == null)
+            _notesPhonePage = new Notes_Phone();
+
+        MainContentArea.Content = _notesPhonePage;
     }
 }

@@ -131,3 +131,4 @@ D:\Software\RepairDesk\RepairDesk\obj\Debug\net9.0\ref\RepairDesk.dll
 D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\database\SQLite_DataBase_File.db
 D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\Dapper.dll
 D:\Software\RepairDesk\RepairDesk\obj\Debug\net9.0\RepairDesk.sourcelink.json
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\Avalonia.Controls.DataGrid.dll

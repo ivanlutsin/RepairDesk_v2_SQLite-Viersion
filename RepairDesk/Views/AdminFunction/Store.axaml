@@ -4,5 +4,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="RepairDesk.Views.AdminFunction.Store">
-    Склад
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Запчасти"
+                    Margin="5"
+                    Click="SparePartsClick"
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"/>
+        
+            <Button Content="Товары"
+                    Click="GoodsClick"
+                    Width="180"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"/>
+            
+            <Button Content="Корзина"
+                    Click="BasketClick"
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"/>
+        </StackPanel>
+        
+        <Border Grid.Row="2">
+            <ContentControl x:Name="MainContentArea"/>
+        </Border>
+    </Grid>
 </UserControl>

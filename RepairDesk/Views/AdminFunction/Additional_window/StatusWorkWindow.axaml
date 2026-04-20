@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:RepairDesk.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:RepairDesk.ViewModels"
+             x:DataType="vm:StatusViewModel"
+             x:Class="RepairDesk.Views.AdminFunction.Additional_window.StatusWorkWindow">
+    
+    <UserControl.DataContext>
+        <viewModels:StatusViewModel/>
+    </UserControl.DataContext>
+    
+    <StackPanel Margin="10" Spacing="10">
+
+        <!-- ФИЛЬТР -->
+        <ComboBox ItemsSource="{Binding Statuses}"
+                  SelectedItem="{Binding SelectedStatus}" />
+
+        <!-- РЕЗУЛЬТАТ -->
+        <ListBox ItemsSource="{Binding Orders}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10" Margin="5" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="{Binding ClientFullName}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding DeviceType}"/>
+                            <TextBlock Text="{Binding Model}"/>
+                            <TextBlock Text="{Binding ProblemDescription}" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding RepairsStatus}" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </StackPanel>
+</UserControl>

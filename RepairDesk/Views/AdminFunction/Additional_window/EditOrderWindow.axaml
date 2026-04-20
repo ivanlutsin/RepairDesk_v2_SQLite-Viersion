@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RepairDesk.Views.AdminFunction.Additional_window.EditOrderWindow"
+             xmlns:addOrderFunction="clr-namespace:RepairDesk.ViewModels.AdminFunctionViewModel.AddOrderFunction"
+             x:DataType="addOrderFunction:EditOrderViewModel">
+    <UserControl.DataContext>
+        <addOrderFunction:EditOrderViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid RowDefinitions="Auto,*" Margin="10">
+
+        <StackPanel Margin="10">
+            
+            <StackPanel Margin="0 10">
+                <ComboBox ItemsSource="{Binding Orders}"
+                          SelectedItem="{Binding SelectedOrder}" Width="150">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ClientFullName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Spacing="6">
+
+                <TextBox Text="{Binding SelectedOrder.ClientFullName}"/>
+                <MaskedTextBox Text="{Binding SelectedOrder.PhoneNumber}" Mask="+7 000 000 00 00"/>
+                <TextBox Text="{Binding SelectedOrder.DeviceType}"/>
+                <TextBox Text="{Binding SelectedOrder.Brand}"/>
+                <TextBox Text="{Binding SelectedOrder.Model}"/>
+                <TextBox Text="{Binding SelectedOrder.ProblemDescription}"/>
+                <ComboBox ItemsSource="{Binding Status}"
+                          SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" Width="150"/>
+
+                <Button Content="Сохранить изменения"
+                        Click="SaveClick"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

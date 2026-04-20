@@ -4,5 +4,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="RepairDesk.Views.AdminFunction.AdminOrders">
-    Заказы админа
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Добавить заказ"
+                    Margin="5"
+                    Click="AddOrderClick"
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"/>
+            
+            <Button Content="Статус"
+                    Margin="5"
+                    Click="StatusWorkClick"
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"/>
+        
+            <Button Content="Редактировать заказ"
+                    Click="EditOrderClick"
+                    Width="180"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"/>
+            
+            <Button Content="Удалить заказ"
+                    Click="DeleteOrderClick"
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"/>
+        </StackPanel>
+        
+        <Border Grid.Row="2">
+            <ContentControl x:Name="MainContentArea"/>
+        </Border>
+    </Grid>
 </UserControl>

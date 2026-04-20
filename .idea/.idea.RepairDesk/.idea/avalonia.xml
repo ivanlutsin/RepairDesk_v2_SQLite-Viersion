@@ -4,12 +4,26 @@
     <option name="projectPerEditor">
       <map>
         <entry key="RepairDesk/App.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/ViewModels/AdminFunctionViewModel/AddOrderFunction/DeleteOrderWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/ViewModels/AdminFunctionViewModel/AddOrderFunction/OrderCreatedWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/AddOrderFunction/OrderCreatedWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/AddOrderWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/DeleteOrderWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/EditOrderClick.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/EditOrderWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/ForWorkWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/StatusWorkWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/Additional_window/add/DeleteOrderWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/AdminOrders.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Devices.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Engineers.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Finance.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Notes_Phone.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Store.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/BasketWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/GoodsClick.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/GoodsWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/SparePartsWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/DebugWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/MainWindow.axaml" value="RepairDesk/RepairDesk.csproj" />

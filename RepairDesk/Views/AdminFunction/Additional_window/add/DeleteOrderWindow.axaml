@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             xmlns:viewModels="clr-namespace:RepairDesk.ViewModels"
+             x:DataType="viewModels:DeleteOrderViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RepairDesk.Views.AdminFunction.Additional_window.add.DeleteOrderWindow">
+    <UserControl.DataContext>
+        <viewModels:DeleteOrderViewModel/>
+    </UserControl.DataContext>
+
+    <Grid RowDefinitions="*,Auto" Margin="10">
+
+        <DataGrid ItemsSource="{Binding Orders}"
+                  SelectedItem="{Binding SelectedOrder}"
+                  AutoGenerateColumns="True"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <Button Content="Удалить заказ"
+                    Click="DeleteClick"/>
+        
+            <Button Content="Обновить"
+                    Click="UpdateBTN"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
