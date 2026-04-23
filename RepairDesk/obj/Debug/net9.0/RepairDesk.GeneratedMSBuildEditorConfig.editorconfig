@@ -57,6 +57,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/Store.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/StoreFunctionWindow/Add/AssignPartWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [D:/Software/RepairDesk/RepairDesk/Views/AdminFunction/StoreFunctionWindow/BasketWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

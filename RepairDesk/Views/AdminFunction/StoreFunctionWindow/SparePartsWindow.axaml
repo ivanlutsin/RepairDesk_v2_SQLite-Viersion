@@ -2,12 +2,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:RepairDesk.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.SparePartsWindow">
-    <Grid>
-        <StackPanel Margin="10" Orientation="Horizontal">
-            <Button Content="Присвоить" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Center"/>
-            <Button Content="Добавить товар" VerticalAlignment="Top" Margin="5 0" Width="150" HorizontalContentAlignment="Center"/>
+             x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.SparePartsWindow"
+             x:DataType="viewModels:SparePartsViewModel">
+    <UserControl.DataContext>
+        <viewModels:SparePartsViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- КНОПКИ -->
+        <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal">
+            <Button Content="Присвоить" Width="150" Click="AssignClick"/>
+            <Button Content="Добавить" Width="150" Margin="5 0"/>
+            <Button Content="Удалить" Width="150" Margin="5 0"/>
         </StackPanel>
+
+        <!-- ФИЛЬТРЫ -->
+        <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Для устройства:" Margin="5"/>
+                <ComboBox Width="150"
+                          ItemsSource="{Binding Devices}"
+                          SelectedItem="{Binding SelectedDevice}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Тип:" Margin="5"/>
+                <ComboBox Width="150"
+                          ItemsSource="{Binding Types}"
+                          SelectedItem="{Binding SelectedType}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Производитель:" Margin="5"/>
+                <ComboBox Width="150"
+                          ItemsSource="{Binding Manufacturers}"
+                          SelectedItem="{Binding SelectedManufacturer}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <!-- СПИСОК -->
+        <ListBox Grid.Row="2"
+                 Margin="10"
+                 ItemsSource="{Binding Parts}"
+                 SelectedItem="{Binding SelectedPart}">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding PartName}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Manufacturer}"/>
+                        <TextBlock Text="{Binding ForDevice}"/>
+                        <TextBlock Text="{Binding Type}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
     </Grid>
 </UserControl>

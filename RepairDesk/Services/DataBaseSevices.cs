@@ -7,7 +7,7 @@ namespace YourApp.Services
     public class DatabaseService
     {
         private readonly string _connectionString;
-        public string DbPath => _dbPath;  // ← Public свойство
+        public string DbPath => _dbPath;  
         private readonly string _dbPath;
 
         public DatabaseService()

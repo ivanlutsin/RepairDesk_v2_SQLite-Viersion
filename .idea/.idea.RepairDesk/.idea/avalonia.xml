@@ -20,6 +20,7 @@
         <entry key="RepairDesk/Views/AdminFunction/Finance.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Notes_Phone.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/Store.axaml" value="RepairDesk/RepairDesk.csproj" />
+        <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/Add/AssignPartWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/BasketWindow.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/GoodsClick.axaml" value="RepairDesk/RepairDesk.csproj" />
         <entry key="RepairDesk/Views/AdminFunction/StoreFunctionWindow/GoodsWindow.axaml" value="RepairDesk/RepairDesk.csproj" />

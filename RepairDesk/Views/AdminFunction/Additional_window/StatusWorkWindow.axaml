@@ -13,12 +13,10 @@
     </UserControl.DataContext>
     
     <StackPanel Margin="10" Spacing="10">
-
-        <!-- ФИЛЬТР -->
+        
         <ComboBox ItemsSource="{Binding Statuses}"
                   SelectedItem="{Binding SelectedStatus}" />
-
-        <!-- РЕЗУЛЬТАТ -->
+        
         <ListBox ItemsSource="{Binding Orders}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

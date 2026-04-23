@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:add="clr-namespace:RepairDesk.ViewModels.AdminFunctionViewModel.StoreFunctionViewModel.Add"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.Add.AssignPartWindow"
+        x:DataType="add:AssignPartViewModel"
+        Title="AssignPartWindow">
+    <StackPanel Margin="10">
+
+        <TextBlock Text="Выберите заказ:" FontSize="16"/>
+
+        <ListBox ItemsSource="{Binding Orders}"
+                 SelectedItem="{Binding SelectedOrder}">
+            
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ClientFullName}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding DeviceType}"/>
+                        <TextBlock Text="{Binding Model}"/>
+                        <TextBlock Text="{Binding RepairsStatus}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <Button Content="Присвоить"
+                Margin="0 10 0 0"
+                Click="AssignClick"/>
+
+    </StackPanel>
+</Window>
