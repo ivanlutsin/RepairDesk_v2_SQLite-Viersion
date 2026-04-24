@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:storeFunctionViewModel="clr-namespace:RepairDesk.ViewModels.AdminFunctionViewModel.StoreFunctionViewModel"
+        x:DataType="storeFunctionViewModel:addproductViewModel"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.Add.addproductWindow"
+        Title="addproductWindow">
+    
+    <Grid>
+        <StackPanel Margin="15" Spacing="8">
+
+            <TextBlock Text="Наименование"/>
+            <TextBox Name="PartNameBox" Text="{Binding PartName}"/>
+
+            <TextBlock Text="Штрихкод"/>
+            <TextBox Text="{Binding Barcode}"/>
+
+            <TextBlock Text="Цена"/>
+            <TextBox Text="{Binding Price}"/>
+
+            <TextBlock Text="Количество"/>
+            <TextBox Text="{Binding Quantity}"/>
+
+            <TextBlock Text="Производитель"/>
+            <TextBox Text="{Binding Manufacturer}"/>
+
+            <TextBlock Text="Тип"/>
+            <TextBox Text="{Binding Type}"/>
+
+            <TextBlock Text="Для устройства"/>
+            <TextBox Text="{Binding ForDevice}"/>
+
+            <Button Content="Сохранить"
+                    Margin="0 10 0 0"
+                    Click="SaveClick"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

@@ -172,21 +172,43 @@ namespace RepairDesk.ViewModels
 
             while (reader.Read())
             {
-                Parts.Add(new RepairParts
+                Parts.Add(new RepairParts()
                 {
-                    ID = reader.GetInt32(0),
+                    ID = reader.IsDBNull(reader.GetOrdinal("ID"))
+                        ? 0
+                        : reader.GetInt32(reader.GetOrdinal("ID")),
 
-                    RepairID = reader.IsDBNull(1) ? null : reader.GetInt32(1),
+                    RepairID = reader.IsDBNull(reader.GetOrdinal("RepairID"))
+                        ? null
+                        : reader.GetInt32(reader.GetOrdinal("RepairID")),
 
-                    PartName = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                    Barcode = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                    PartName = reader.IsDBNull(reader.GetOrdinal("PartName"))
+                        ? ""
+                        : reader.GetString(reader.GetOrdinal("PartName")),
 
-                    Price = reader.IsDBNull(4) ? 0 : reader.GetDouble(4),
-                    Quantity = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                    Barcode = reader.IsDBNull(reader.GetOrdinal("Barcode"))
+                        ? ""
+                        : reader.GetString(reader.GetOrdinal("Barcode")),
 
-                    Manufacturer = reader.IsDBNull(6) ? "" : reader.GetString(6),
-                    Type = reader.IsDBNull(7) ? "" : reader.GetString(7),
-                    ForDevice = reader.IsDBNull(8) ? "" : reader.GetString(8)
+                    Price = reader.IsDBNull(reader.GetOrdinal("Price"))
+                        ? 0
+                        : reader.GetDouble(reader.GetOrdinal("Price")),
+
+                    Quantity = reader.IsDBNull(reader.GetOrdinal("Quantity"))
+                        ? 0
+                        : reader.GetInt32(reader.GetOrdinal("Quantity")),
+
+                    Manufacturer = reader.IsDBNull(reader.GetOrdinal("Manufacturer"))
+                        ? ""
+                        : reader.GetString(reader.GetOrdinal("Manufacturer")),
+
+                    Type = reader.IsDBNull(reader.GetOrdinal("Type"))
+                        ? ""
+                        : reader.GetString(reader.GetOrdinal("Type")),
+
+                    ForDevice = reader.IsDBNull(reader.GetOrdinal("ForDevice"))
+                        ? ""
+                        : reader.GetString(reader.GetOrdinal("ForDevice"))
                 });
             }
         }

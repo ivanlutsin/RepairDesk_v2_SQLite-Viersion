@@ -15,7 +15,7 @@
         <!-- КНОПКИ -->
         <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal">
             <Button Content="Присвоить" Width="150" Click="AssignClick"/>
-            <Button Content="Добавить" Width="150" Margin="5 0"/>
+            <Button Content="Добавить" Width="150" Margin="5 0" Click="AddProductClick"/>
             <Button Content="Удалить" Width="150" Margin="5 0"/>
         </StackPanel>
 

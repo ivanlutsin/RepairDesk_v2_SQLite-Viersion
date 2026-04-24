@@ -24,14 +24,16 @@ public partial class SparePartsWindow : UserControl
         var window = new AssignPartWindow(vm.SelectedPart);
         window.Show();
     }
-
-    private void AddClick(object? sender, RoutedEventArgs e)
-    {
-        
-    }
+    
 
     private void DeleteClick(object? sender, RoutedEventArgs e)
     {
         
+    }
+
+    private void AddProductClick(object? sender, RoutedEventArgs e)
+    {
+        var window = new addproductWindow();
+        window.Show();
     }
 }
