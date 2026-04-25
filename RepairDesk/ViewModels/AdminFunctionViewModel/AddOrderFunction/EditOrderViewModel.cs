@@ -62,6 +62,11 @@ public class EditOrderViewModel : INotifyPropertyChanged
         LoadOrders();
     }
 
+    public void Refresh()
+    {
+        LoadOrders();
+    }
+    
     public void LoadOrders()
     {
         Orders.Clear();

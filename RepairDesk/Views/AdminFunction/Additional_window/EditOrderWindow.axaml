@@ -36,8 +36,8 @@
                 <ComboBox ItemsSource="{Binding Status}"
                           SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" Width="150"/>
 
-                <Button Content="Сохранить изменения"
-                        Click="SaveClick"/>
+                <Button Content="Сохранить изменения" Click="SaveClick"/>
+                <Button Content="Обновить" Click="RefreshClick"/>
             </StackPanel>
         </StackPanel>
 

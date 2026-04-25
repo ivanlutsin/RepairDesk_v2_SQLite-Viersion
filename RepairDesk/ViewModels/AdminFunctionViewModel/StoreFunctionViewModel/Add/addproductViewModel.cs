@@ -91,7 +91,7 @@ public class addproductViewModel : INotifyPropertyChanged
         cmd.Parameters.AddWithValue("$device", ForDevice);
 
         cmd.ExecuteNonQuery();
-
+        
         ClearFields();
     }
 

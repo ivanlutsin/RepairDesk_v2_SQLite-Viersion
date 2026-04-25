@@ -20,4 +20,10 @@ public partial class EditOrderWindow : UserControl
             vm.Save();
         }
     }
+
+    private void RefreshClick(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is EditOrderViewModel vm)
+            vm.Refresh();
+    }
 }

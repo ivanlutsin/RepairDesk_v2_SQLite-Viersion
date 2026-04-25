@@ -6,9 +6,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.SparePartsWindow"
              x:DataType="viewModels:SparePartsViewModel">
-    <UserControl.DataContext>
-        <viewModels:SparePartsViewModel/>
-    </UserControl.DataContext>
     
     <Grid RowDefinitions="Auto,Auto,*">
 
@@ -16,7 +13,8 @@
         <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal">
             <Button Content="Присвоить" Width="150" Click="AssignClick"/>
             <Button Content="Добавить" Width="150" Margin="5 0" Click="AddProductClick"/>
-            <Button Content="Удалить" Width="150" Margin="5 0"/>
+            <Button Content="Обновить список" Width="150" Margin="5 0" Click="RefreshList"/>
+            <Button Content="Удалить" Width="150" Margin="5 0" Click="DeleteClick"/>
         </StackPanel>
 
         <!-- ФИЛЬТРЫ -->

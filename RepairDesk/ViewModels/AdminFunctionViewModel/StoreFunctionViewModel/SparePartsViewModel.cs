@@ -13,10 +13,15 @@ namespace RepairDesk.ViewModels
         private readonly DatabaseService _db = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        // ================== СТАТУС ОБНОВЛЕНИЯ ==================
+
+        private bool _isRefreshing;
 
         // ================== ДАННЫЕ ==================
 
@@ -26,7 +31,7 @@ namespace RepairDesk.ViewModels
         public ObservableCollection<string> Devices { get; set; } = new();
         public ObservableCollection<string> Manufacturers { get; set; } = new();
 
-        // ================== ВЫБРАННЫЕ ФИЛЬТРЫ ==================
+        // ================== ФИЛЬТРЫ ==================
 
         private string _selectedType = "Все";
         public string SelectedType
@@ -34,9 +39,14 @@ namespace RepairDesk.ViewModels
             get => _selectedType;
             set
             {
+                if (_selectedType == value)
+                    return;
+
                 _selectedType = value;
                 OnPropertyChanged();
-                LoadParts();
+
+                if (!_isRefreshing)
+                    LoadParts();
             }
         }
 
@@ -46,9 +56,14 @@ namespace RepairDesk.ViewModels
             get => _selectedDevice;
             set
             {
+                if (_selectedDevice == value)
+                    return;
+
                 _selectedDevice = value;
                 OnPropertyChanged();
-                LoadParts();
+
+                if (!_isRefreshing)
+                    LoadParts();
             }
         }
 
@@ -58,9 +73,14 @@ namespace RepairDesk.ViewModels
             get => _selectedManufacturer;
             set
             {
+                if (_selectedManufacturer == value)
+                    return;
+
                 _selectedManufacturer = value;
                 OnPropertyChanged();
-                LoadParts();
+
+                if (!_isRefreshing)
+                    LoadParts();
             }
         }
 
@@ -81,8 +101,7 @@ namespace RepairDesk.ViewModels
 
         public SparePartsViewModel()
         {
-            LoadFilters();
-            LoadParts();
+            Refresh();
         }
 
         // ================== ЗАГРУЗКА ФИЛЬТРОВ ==================
@@ -100,7 +119,6 @@ namespace RepairDesk.ViewModels
             using var connection = _db.GetConnection();
             connection.Open();
 
-            // Типы
             var cmdType = connection.CreateCommand();
             cmdType.CommandText = "SELECT DISTINCT Type FROM RepairParts WHERE Type IS NOT NULL AND Type != ''";
 
@@ -110,7 +128,6 @@ namespace RepairDesk.ViewModels
                     Types.Add(reader.GetString(0));
             }
 
-            // Устройства
             var cmdDevice = connection.CreateCommand();
             cmdDevice.CommandText = "SELECT DISTINCT ForDevice FROM RepairParts WHERE ForDevice IS NOT NULL AND ForDevice != ''";
 
@@ -120,7 +137,6 @@ namespace RepairDesk.ViewModels
                     Devices.Add(reader.GetString(0));
             }
 
-            // Производители
             var cmdManufacturer = connection.CreateCommand();
             cmdManufacturer.CommandText = "SELECT DISTINCT Manufacturer FROM RepairParts WHERE Manufacturer IS NOT NULL AND Manufacturer != ''";
 
@@ -157,7 +173,9 @@ namespace RepairDesk.ViewModels
                 ? "WHERE " + string.Join(" AND ", conditions)
                 : "";
 
-            cmd.CommandText = $"SELECT * FROM RepairParts {where}";
+            cmd.CommandText =
+                "SELECT ID, RepairID, PartName, Barcode, Price, Quantity, Manufacturer, Type, ForDevice " +
+                $"FROM RepairParts {where}";
 
             if (SelectedType != "Все")
                 cmd.Parameters.AddWithValue("$type", SelectedType);
@@ -170,65 +188,73 @@ namespace RepairDesk.ViewModels
 
             using var reader = cmd.ExecuteReader();
 
+            // индексы читаем 1 раз
+            int id = reader.GetOrdinal("ID");
+            int repairId = reader.GetOrdinal("RepairID");
+            int partName = reader.GetOrdinal("PartName");
+            int barcode = reader.GetOrdinal("Barcode");
+            int price = reader.GetOrdinal("Price");
+            int qty = reader.GetOrdinal("Quantity");
+            int manufacturer = reader.GetOrdinal("Manufacturer");
+            int type = reader.GetOrdinal("Type");
+            int device = reader.GetOrdinal("ForDevice");
+
             while (reader.Read())
             {
                 Parts.Add(new RepairParts()
                 {
-                    ID = reader.IsDBNull(reader.GetOrdinal("ID"))
-                        ? 0
-                        : reader.GetInt32(reader.GetOrdinal("ID")),
-
-                    RepairID = reader.IsDBNull(reader.GetOrdinal("RepairID"))
-                        ? null
-                        : reader.GetInt32(reader.GetOrdinal("RepairID")),
-
-                    PartName = reader.IsDBNull(reader.GetOrdinal("PartName"))
-                        ? ""
-                        : reader.GetString(reader.GetOrdinal("PartName")),
-
-                    Barcode = reader.IsDBNull(reader.GetOrdinal("Barcode"))
-                        ? ""
-                        : reader.GetString(reader.GetOrdinal("Barcode")),
-
-                    Price = reader.IsDBNull(reader.GetOrdinal("Price"))
-                        ? 0
-                        : reader.GetDouble(reader.GetOrdinal("Price")),
-
-                    Quantity = reader.IsDBNull(reader.GetOrdinal("Quantity"))
-                        ? 0
-                        : reader.GetInt32(reader.GetOrdinal("Quantity")),
-
-                    Manufacturer = reader.IsDBNull(reader.GetOrdinal("Manufacturer"))
-                        ? ""
-                        : reader.GetString(reader.GetOrdinal("Manufacturer")),
-
-                    Type = reader.IsDBNull(reader.GetOrdinal("Type"))
-                        ? ""
-                        : reader.GetString(reader.GetOrdinal("Type")),
-
-                    ForDevice = reader.IsDBNull(reader.GetOrdinal("ForDevice"))
-                        ? ""
-                        : reader.GetString(reader.GetOrdinal("ForDevice"))
+                    ID = reader.IsDBNull(id) ? 0 : reader.GetInt32(id),
+                    RepairID = reader.IsDBNull(repairId) ? null : reader.GetInt32(repairId),
+                    PartName = reader.IsDBNull(partName) ? "" : reader.GetString(partName),
+                    Barcode = reader.IsDBNull(barcode) ? "" : reader.GetString(barcode),
+                    Price = reader.IsDBNull(price) ? 0 : reader.GetDouble(price),
+                    Quantity = reader.IsDBNull(qty) ? 0 : reader.GetInt32(qty),
+                    Manufacturer = reader.IsDBNull(manufacturer) ? "" : reader.GetString(manufacturer),
+                    Type = reader.IsDBNull(type) ? "" : reader.GetString(type),
+                    ForDevice = reader.IsDBNull(device) ? "" : reader.GetString(device),
                 });
             }
         }
 
-        // ================== ОБНОВИТЬ ==================
+        // ================== REFRESH ==================
 
         public void Refresh()
         {
+            _isRefreshing = true;
+
             LoadFilters();
             LoadParts();
         }
+        
+        public void RefreshCommand()
+        {
+            LoadParts();
+        }
+        
+        public void DeleteSelectedPart()
+        {
+            if (SelectedPart == null)
+                return;
 
-        // ================== ПРИСВОИТЬ (заглушка) ==================
+            using var conn = _db.GetConnection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM RepairParts WHERE ID = $id";
+            cmd.Parameters.AddWithValue("$id", SelectedPart.ID);
+
+            cmd.ExecuteNonQuery();
+
+            // обновляем список
+            LoadParts();
+        }
+        
+        // ================== ПРИСВОЕНИЕ ==================
 
         public void AssignPart()
         {
             if (SelectedPart == null)
                 return;
-
-            // Тут потом окно выбора заказа
         }
     }
 }

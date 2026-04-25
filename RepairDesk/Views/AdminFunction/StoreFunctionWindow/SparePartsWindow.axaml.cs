@@ -28,12 +28,19 @@ public partial class SparePartsWindow : UserControl
 
     private void DeleteClick(object? sender, RoutedEventArgs e)
     {
-        
+        if (DataContext is SparePartsViewModel vm)
+            vm.DeleteSelectedPart();
     }
 
     private void AddProductClick(object? sender, RoutedEventArgs e)
     {
         var window = new addproductWindow();
         window.Show();
+    }
+
+    private void RefreshList(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is SparePartsViewModel vm)
+            vm.LoadParts();
     }
 }

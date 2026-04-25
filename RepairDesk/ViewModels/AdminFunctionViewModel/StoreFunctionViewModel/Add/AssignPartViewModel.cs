@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using RepairDesk.Models;
@@ -13,7 +14,7 @@ public class AssignPartViewModel : INotifyPropertyChanged
 
     public Orders? SelectedOrder { get; set; }
 
-    public RepairParts Part { get; }
+    public RepairParts Part { get; set; }
 
     public AssignPartViewModel(RepairParts part)
     {
@@ -68,6 +69,8 @@ WHERE RepairsStatus = 'В работе'
         cmd.Parameters.AddWithValue("$repairId", SelectedOrder.ID);
         cmd.Parameters.AddWithValue("$partId", Part.ID);
 
+        var rows = cmd.ExecuteNonQuery();
+        Console.WriteLine($"Updated rows: {rows}");
         cmd.ExecuteNonQuery();
     }
 

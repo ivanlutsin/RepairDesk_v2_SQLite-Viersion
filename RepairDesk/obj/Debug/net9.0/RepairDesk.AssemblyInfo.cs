@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RepairDesk")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c27e19b837eb9adaa1a57a624e151d1ab217a6d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b79b92b7badb2a4acb8ed2ed4b0de8e1512830fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("RepairDesk")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RepairDesk")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
