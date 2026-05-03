@@ -2,7 +2,96 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:RepairDesk.ViewModels"
+             xmlns:models="clr-namespace:RepairDesk.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.GoodsWindow">
-    Товары
+             x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.GoodsWindow"
+             x:DataType="viewModels:GoodsViewModel">
+    <Design.DataContext>
+        <viewModels:GoodsViewModel/>
+    </Design.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Text="Управление товарами" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+        
+        <!-- Форма добавления товара -->
+        <Border Grid.Row="1" Margin="10" CornerRadius="10" Background="#2A2A2A" Padding="15">
+            <StackPanel>
+                <TextBlock Text="➕ Добавить новый товар" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <Grid ColumnDefinitions="*, *, *, *" RowDefinitions="Auto, Auto">
+                    
+                    <TextBox Grid.Row="0" Grid.Column="0" Watermark="Название" Text="{Binding NewProduct.ProductName}" Margin="0,0,5,5"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Watermark="Штрихкод" Text="{Binding NewProduct.Barcode}" Margin="5,0,5,5"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" Watermark="Цена" Text="{Binding NewProduct.Price}" Margin="5,0,5,5"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Watermark="Количество" Text="{Binding NewProduct.Quantity}" Margin="5,0,0,5"/>
+                    
+                    <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Watermark="Характеристики / Описание" 
+                             Text="{Binding NewProduct.Characteristics}" Margin="0,5,0,0"/>
+                </Grid>
+                
+                <Button Content="💾 Сохранить товар" Command="{Binding AddProductCommand}" 
+                        HorizontalAlignment="Right" Width="150" Margin="0,15,0,0"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Список товаров со скроллом -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="10">
+            <ItemsControl ItemsSource="{Binding Products}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="models:Products">
+                        <Border Margin="0,3" CornerRadius="8" Background="#2A2A2A">
+                            <Grid ColumnDefinitions="*, Auto">
+                                
+                                <!-- Левая часть: информация о товаре -->
+                                <StackPanel Grid.Column="0" Margin="15,12">
+                                    <TextBlock Text="{Binding ProductName}" FontWeight="Bold" FontSize="16"/>
+                                    <TextBlock Text="{Binding Characteristics}" FontSize="11" Opacity="0.6" 
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Spacing="20">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="💰 " Foreground="Gold"/>
+                                            <TextBlock Text="{Binding Price}" Foreground="Gold" FontWeight="Bold"/>
+                                            <TextBlock Text=" ₽" Foreground="Gold" FontSize="11"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="📦 " Foreground="SkyBlue"/>
+                                            <TextBlock Text="{Binding Quantity}" Foreground="SkyBlue" FontWeight="Bold"/>
+                                            <TextBlock Text=" шт." Foreground="SkyBlue" FontSize="11"/>
+                                        </StackPanel>
+                                        
+                                        <!-- Показываем штрихкод только если он не пустой -->
+                                        <StackPanel Orientation="Horizontal" IsVisible="{Binding Barcode, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                            <TextBlock Text="🔖 "/>
+                                            <TextBlock Text="{Binding Barcode}" Opacity="0.5" FontSize="10"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                
+                                <!-- Правая часть: кнопки действий -->
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0" Spacing="5">
+                                    <Button Content="💸 Продать" 
+                                            Click="SellProductCommand"
+                                            CommandParameter="{Binding}"
+                                            Background="#2E7D32"
+                                            Width="80"/>
+                                    <Button Content="❌ Удалить" 
+                                            Click="DeleteProductCommand"
+                                            CommandParameter="{Binding}"
+                                            Background="#C62828"
+                                            Width="80"/>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
