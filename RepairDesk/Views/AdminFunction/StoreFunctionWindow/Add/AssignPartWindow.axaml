@@ -17,10 +17,25 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding ClientFullName}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding DeviceType}"/>
-                        <TextBlock Text="{Binding Model}"/>
-                        <TextBlock Text="{Binding RepairsStatus}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ФИО: "/>
+                            <TextBlock Text="{Binding ClientFullName}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Тип Устройства: "/>
+                            <TextBlock Text="{Binding DeviceType}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Модель: "/>
+                            <TextBlock Text="{Binding Model}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Статус ремонта: "/>
+                            <TextBlock Text="{Binding RepairsStatus}" FontWeight="Bold"/>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

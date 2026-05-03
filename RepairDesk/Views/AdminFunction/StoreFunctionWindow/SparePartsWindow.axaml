@@ -51,11 +51,36 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding PartName}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Manufacturer}"/>
-                        <TextBlock Text="{Binding ForDevice}"/>
-                        <TextBlock Text="{Binding Type}"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Название: "/>
+                            <TextBlock Text="{Binding PartName}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Производитель: "/>
+                            <TextBlock Text="{Binding Manufacturer}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Для устройства: "/>
+                            <TextBlock Text="{Binding ForDevice}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Тип: "/>
+                            <TextBlock Text="{Binding Type}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Количество на складе: "/>
+                            <TextBlock Text="{Binding Quantity}" FontWeight="Bold"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Цена руб: "/>
+                            <TextBlock Text="{Binding Price}"   FontWeight="Bold"/>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -10,18 +10,31 @@
         <StackPanel Spacing="8" Margin="10">
 
             <!-- Клиент -->
-            <TextBox x:Name="ClientNameBox" Watermark="ФИО клиента"/>
-            <MaskedTextBox x:Name="PhoneBox" Mask="+7 000 000 00 00" Watermark="Введите номер телефона клиента"/>
+            <TextBlock Text="ФИО Клиента"/>
+            <TextBox x:Name="ClientNameBox"/>
+            
+            <TextBlock Text="Номер телефона клиента"/>
+            <MaskedTextBox x:Name="PhoneBox" Mask="+7 000 000 00 00"/>
 
             <!-- Устройство -->
-            <TextBox x:Name="DeviceBox" Watermark="Устройство"/>
-            <TextBox x:Name="BrandBox" Watermark="Бренд"/>
-            <TextBox x:Name="ModelBox" Watermark="Модель"/>
-            <TextBox x:Name="SerialBox" Watermark="Серийный номер"/>
+            <TextBlock Text="Устройство"/>
+            <TextBox x:Name="DeviceBox"/>
+            
+            <TextBlock Text="Бренд"/>
+            <TextBox x:Name="BrandBox"/>
+            
+            <TextBlock Text="Модель"/>
+            <TextBox x:Name="ModelBox"/>
+            
+            <TextBlock Text="Серийный номер"/>
+            <TextBox x:Name="SerialBox"/>
 
             <!-- Ремонт -->
-            <TextBox x:Name="ProblemBox" Watermark="Проблема"/>
-            <TextBox x:Name="EndDateBox" Watermark="Дата окончания (опц.)"/>
+            <TextBlock Text="Описание неисправности со слов клиента"/>
+            <TextBox x:Name="ProblemBox"/>
+            
+            <TextBlock Text="Примерная дата окончания ремонта (опц.)"/>
+            <TextBox x:Name="EndDateBox"/>
 
             <Button Content="Сохранить" Click="SaveClick"/>
             <Button Content="Очистить" Click="RefreshClick"/>
