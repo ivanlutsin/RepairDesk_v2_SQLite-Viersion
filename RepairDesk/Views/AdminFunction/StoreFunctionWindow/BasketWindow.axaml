@@ -2,7 +2,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:RepairDesk.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.BasketWindow">
-    корзина
+             x:Class="RepairDesk.Views.AdminFunction.StoreFunctionWindow.BasketWindow"
+             x:DataType="viewModels:BasketViewModel">
+    
+    <Design.DataContext>
+        <viewModels:BasketViewModel/>
+    </Design.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="🛒 Корзина" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+        
+        <!-- Список товаров -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10">
+            <ItemsControl ItemsSource="{Binding CartItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,3" CornerRadius="8" Background="#2A2A2A" Padding="10">
+                            <Grid ColumnDefinitions="*, Auto, Auto">
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding ProductName}" FontWeight="Bold" FontSize="14"/>
+                                    <TextBlock Text="{Binding Price}" FontSize="12" Opacity="0.7"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <!-- Итого и кнопки -->
+        <Border Grid.Row="2" Background="#2A2A2A" CornerRadius="8" Margin="10" Padding="10">
+            <Grid ColumnDefinitions="*, Auto, Auto">
+                <TextBlock Grid.Column="0" Text="ИТОГО:" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding TotalAmount}" FontWeight="Bold" FontSize="18" Foreground="Gold" VerticalAlignment="Center" Margin="20,0"/>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10">
+                    <Button Content="❌ Удалить выбранное" 
+                            Click="RemoveItem_Click"
+                            Background="#C62828"/>
+                    <Button Content="🗑 Очистить всё" 
+                            Click="ClearAll_Click"
+                            Background="#FF8C00"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

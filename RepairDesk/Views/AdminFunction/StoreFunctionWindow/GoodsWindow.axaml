@@ -75,7 +75,7 @@
                                 <!-- Правая часть: кнопки действий -->
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0" Spacing="5">
                                     <Button Content="Продать" 
-                                            Click="SellProductCommand"
+                                            Click="SellProduct_Click"
                                             CommandParameter="{Binding}"
                                             Width="80"/>
                                     <Button Content="Удалить" 
