@@ -39,13 +39,18 @@ public partial class GoodsWindow : UserControl
             Console.WriteLine("=== Button pressed ===");
             Console.WriteLine($"Goods: {product.ProductName}, ID={product.ID}, Price={product.Price}");
         
+            // 1. Уменьшаем количество в Products
             var vm = DataContext as GoodsViewModel;
             vm?.SellProductDirect(product);
         
+            // 2. Добавляем в корзину
             var db = new DatabaseService();
             db.AddToCart(product);
         
-            Console.WriteLine("=== The challenge is sucessful ===");
+            // 3. Принудительно обновляем UI (тот самый магический способ)
+            vm?.RefreshProducts();
+        
+            Console.WriteLine("=== The challenge is successful ===");
         }
     }
 }

@@ -9,21 +9,38 @@ namespace YourApp.Services
     public class DatabaseService
     {
         private readonly string _connectionString;
-        public string DbPath => _dbPath;
         private readonly string _dbPath;
+
+        public string DbPath => _dbPath;
 
         public DatabaseService()
         {
-            var projectDir = @"D:\Software\RepairDesk\RepairDesk";
-            _dbPath = Path.Combine(projectDir, "database", "SQLite_DataBase_File.db");
+            // 📁 AppData путь
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var folder = Path.Combine(appData, "RepairDesk");
 
-            _connectionString = $"Data Source={_dbPath};Cache=Shared";
-            
-            File.WriteAllText("path.txt", _dbPath);
+            Directory.CreateDirectory(folder);
+
+            _dbPath = Path.Combine(folder, "SQLite_DataBase_File.db");
+
+            // 📦 путь к шаблону (рядом с exe)
+            var templatePath = Path.Combine(AppContext.BaseDirectory, "SQLite_DataBase_Template.db");
+
+            // 🔥 если БД нет — копируем
+            if (!File.Exists(_dbPath))
+            {
+                if (File.Exists(templatePath))
+                {
+                    File.Copy(templatePath, _dbPath);
+                }
+            }
+
             _connectionString = $"Data Source={_dbPath}";
 
             Console.WriteLine($"[DB] Path: {_dbPath}");
-            Console.WriteLine($"[DB] File exists: {File.Exists(_dbPath)}");
+            Console.WriteLine($"[DB] Exists: {File.Exists(_dbPath)}");
+
+            InitializeDatabase();
         }
 
         public SqliteConnection GetConnection()
@@ -31,9 +48,75 @@ namespace YourApp.Services
             return new SqliteConnection(_connectionString);
         }
 
+        // ================= INIT =================
+
+        private void InitializeDatabase()
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            var cmd = connection.CreateCommand();
+
+            cmd.CommandText = @"
+CREATE TABLE IF NOT EXISTS Products (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ProductName TEXT NOT NULL,
+    Barcode TEXT NOT NULL,
+    Price REAL NOT NULL,
+    Quantity INTEGER,
+    Characteristics TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Cart (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ProductID INTEGER NOT NULL,
+    ProductName TEXT NOT NULL,
+    Quantity INTEGER NOT NULL,
+    Price REAL NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Repairs (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    DeviceType TEXT NOT NULL,
+    Brand TEXT NOT NULL,
+    ClientFullName TEXT NOT NULL,
+    PhoneNumber TEXT NOT NULL,
+    Model TEXT NOT NULL,
+    SerialNumber TEXT,
+    ProblemDescription TEXT,
+    StartDate TEXT NOT NULL,
+    EndDate TEXT,
+    RepairsStatus TEXT,
+    Order_Number NUMERIC NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Users (
+    ID INTEGER PRIMARY KEY,
+    FullName TEXT,
+    Role TEXT,
+    SellerCode TEXT UNIQUE,
+    Working_Hours TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Sales (
+    ID INTEGER PRIMARY KEY,
+    ProductName TEXT NOT NULL,
+    Barcode TEXT NOT NULL,
+    PriceAtMoment REAL NOT NULL,
+    TotalAmount INTEGER NOT NULL,
+    SellerName TEXT NOT NULL,
+    Date TEXT NOT NULL
+)";
+
+            cmd.ExecuteNonQuery();
+        }
+
+        // ================= PRODUCTS =================
+
         public ObservableCollection<Products> LoadProducts()
         {
             var products = new ObservableCollection<Products>();
+
             using var connection = GetConnection();
             connection.Open();
 
@@ -72,6 +155,7 @@ namespace YourApp.Services
             cmd.Parameters.AddWithValue("@price", product.Price);
             cmd.Parameters.AddWithValue("@quantity", product.Quantity);
             cmd.Parameters.AddWithValue("@char", product.Characteristics);
+
             cmd.ExecuteNonQuery();
         }
 
@@ -83,103 +167,186 @@ namespace YourApp.Services
             var query = "DELETE FROM Products WHERE ID = @id";
             using var cmd = new SqliteCommand(query, connection);
             cmd.Parameters.AddWithValue("@id", productId);
+
             cmd.ExecuteNonQuery();
         }
 
-        public void SellProduct(Products product, int quantity = 1)
-        {
-            if (product.Quantity < quantity) return;
-
-            product.Quantity -= quantity;
-
-            using var connection = GetConnection();
-            connection.Open();
-
-            var query = "UPDATE Products SET Quantity = @qty WHERE ID = @id";
-            using var cmd = new SqliteCommand(query, connection);
-            cmd.Parameters.AddWithValue("@qty", product.Quantity);
-            cmd.Parameters.AddWithValue("@id", product.ID);
-            cmd.ExecuteNonQuery();
-        }
-        // Загрузить все товары из корзины
-        public ObservableCollection<CartItem> LoadCart()
+        public bool SellProduct(Products product, int quantity = 1) 
         { 
-            var items = new ObservableCollection<CartItem>();
+            Console.WriteLine($"[DB] SellProduct: {product.ProductName}, ID={product.ID}, Qty={quantity}");
+            if (product.Quantity < quantity) 
+            { 
+                Console.WriteLine($"[DB] Недостаточно товара: есть {product.Quantity}, нужно {quantity}"); 
+                return false; 
+            }
+    
+    
             using var connection = GetConnection();
+    
             connection.Open();
     
+    
+            using var tx = connection.BeginTransaction();
+    
+    
+            try
+            { 
+                // 1. Уменьшаем количество в Products
+        
+                var updateQuery = "UPDATE Products SET Quantity = Quantity - @qty WHERE ID = @id"; 
+                using var updateCmd = new SqliteCommand(updateQuery, connection); 
+                updateCmd.Parameters.AddWithValue("@qty", quantity); 
+                updateCmd.Parameters.AddWithValue("@id", product.ID); 
+                int rows = updateCmd.ExecuteNonQuery(); 
+                Console.WriteLine($"[DB] Products updated: {rows} rows");
+                
+                // 2. Добавляем в корзину
+                var checkQuery = "SELECT ID, Quantity FROM Cart WHERE ProductID = @productId"; 
+                using var checkCmd = new SqliteCommand(checkQuery, connection); 
+                checkCmd.Parameters.AddWithValue("@productId", product.ID);
+                
+                using var reader = checkCmd.ExecuteReader(); 
+                if (reader.Read()) 
+                {
+            
+                    int cartId = reader.GetInt32(0); 
+                    int newQty = reader.GetInt32(1) + quantity; 
+                    var updateCartQuery = "UPDATE Cart SET Quantity = @qty WHERE ID = @id"; 
+                    using var updateCartCmd = new SqliteCommand(updateCartQuery, connection); 
+                    updateCartCmd.Parameters.AddWithValue("@qty", newQty); 
+                    updateCartCmd.Parameters.AddWithValue("@id", cartId); 
+                    updateCartCmd.ExecuteNonQuery(); 
+                    Console.WriteLine($"[DB] Cart updated: new quantity={newQty}"); 
+                }
+                else 
+                {
+            // Вставляем новый товар в корзину
+            
+            var insertQuery = @"INSERT INTO Cart (ProductID, ProductName, Quantity, Price)            
+VALUES (@productId, @name, @qty, @price)"; 
+            using var insertCmd = new SqliteCommand(insertQuery, connection);
+            insertCmd.Parameters.AddWithValue("@productId", product.ID);
+            insertCmd.Parameters.AddWithValue("@name", product.ProductName);
+            insertCmd.Parameters.AddWithValue("@qty", quantity);
+            insertCmd.Parameters.AddWithValue("@price", product.Price);
+            insertCmd.ExecuteNonQuery();
+            Console.WriteLine($"[DB] New item added to cart"); 
+                }
+                
+                tx.Commit();
+        
+        // Обновляем объект в памяти
+        
+        product.Quantity -= quantity; 
+        Console.WriteLine($"[DB] Success! New quantity: {product.Quantity}");
+        
+        return true; 
+            }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine($"[DB] ERROR: {ex.Message}"); 
+                tx.Rollback(); 
+                return false; 
+            } 
+        }
+
+        // ================= CART =================
+
+        public ObservableCollection<CartItem> LoadCart()
+        {
+            var items = new ObservableCollection<CartItem>();
+
+            using var connection = GetConnection();
+            connection.Open();
+
             var query = "SELECT ID, ProductID, ProductName, Quantity, Price FROM Cart";
             using var cmd = new SqliteCommand(query, connection);
             using var reader = cmd.ExecuteReader();
-    
+
             while (reader.Read())
             {
                 items.Add(new CartItem
-            {
-                ID = reader.GetInt32(0),
-                ProductID = reader.GetInt32(1),
-                ProductName = reader.GetString(2),
-                Quantity = reader.GetInt32(3),
-                Price = reader.GetDouble(4) 
-            }); 
-            } 
-            return items; 
+                {
+                    ID = reader.GetInt32(0),
+                    ProductID = reader.GetInt32(1),
+                    ProductName = reader.GetString(2),
+                    Quantity = reader.GetInt32(3),
+                    Price = reader.GetDouble(4)
+                });
+            }
+
+            return items;
         }
 
-        public void AddToCart(Products product, int quantity = 1) 
-        { 
-            using var connection = GetConnection(); 
+        public void AddToCart(Products product, int quantity = 1)
+        {
+            using var connection = GetConnection();
             connection.Open();
-            
-            var checkQuery = "SELECT ID, Quantity FROM Cart WHERE ProductID = @productId"; 
-            using var checkCmd = new SqliteCommand(checkQuery, connection); 
+
+            var checkQuery = "SELECT ID, Quantity FROM Cart WHERE ProductID = @productId";
+            using var checkCmd = new SqliteCommand(checkQuery, connection);
             checkCmd.Parameters.AddWithValue("@productId", product.ID);
-            
-            using var reader = checkCmd.ExecuteReader(); 
-            if (reader.Read()) 
-            { 
-                int cartId = reader.GetInt32(0); 
-                int newQuantity = reader.GetInt32(1) + quantity;
-                
-                var updateQuery = "UPDATE Cart SET Quantity = @qty WHERE ID = @id"; 
-                using var updateCmd = new SqliteCommand(updateQuery, connection);
-        
-                updateCmd.Parameters.AddWithValue("@qty", newQuantity); 
-                updateCmd.Parameters.AddWithValue("@id", cartId); 
-                updateCmd.ExecuteNonQuery(); 
+
+            int? cartId = null;
+            int currentQty = 0;
+
+            using (var reader = checkCmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    cartId = reader.GetInt32(0);
+                    currentQty = reader.GetInt32(1);
+                }
             }
-            else 
-            { 
+
+            if (cartId != null)
+            {
+                var updateQuery = "UPDATE Cart SET Quantity = @qty WHERE ID = @id";
+                using var updateCmd = new SqliteCommand(updateQuery, connection);
+
+                updateCmd.Parameters.AddWithValue("@qty", currentQty + quantity);
+                updateCmd.Parameters.AddWithValue("@id", cartId);
+
+                updateCmd.ExecuteNonQuery();
+            }
+            else
+            {
                 var insertQuery = @"
-INSERT INTO Cart (ProductID, ProductName, Quantity, Price)
-            VALUES (@productId, @name, @qty, @price)"; 
-                using var insertCmd = new SqliteCommand(insertQuery, connection); 
+                    INSERT INTO Cart (ProductID, ProductName, Quantity, Price)
+                    VALUES (@productId, @name, @qty, @price)";
+
+                using var insertCmd = new SqliteCommand(insertQuery, connection);
+
                 insertCmd.Parameters.AddWithValue("@productId", product.ID);
                 insertCmd.Parameters.AddWithValue("@name", product.ProductName);
                 insertCmd.Parameters.AddWithValue("@qty", quantity);
                 insertCmd.Parameters.AddWithValue("@price", product.Price);
-                insertCmd.ExecuteNonQuery(); 
-            } 
-        }
-        public void RemoveFromCart(int cartId) 
-        { 
-            using var connection = GetConnection(); 
-            connection.Open();
-            var query = "DELETE FROM Cart WHERE ID = @id"; 
-            using var cmd = new SqliteCommand(query, connection); 
-            cmd.Parameters.AddWithValue("@id", cartId); 
-            cmd.ExecuteNonQuery(); 
+
+                insertCmd.ExecuteNonQuery();
+            }
         }
 
-        
-        public void ClearCart() 
-        { 
-            using var connection = GetConnection(); 
+        public void RemoveFromCart(int cartId)
+        {
+            using var connection = GetConnection();
             connection.Open();
-            
-            var query = "DELETE FROM Cart"; 
-            using var cmd = new SqliteCommand(query, connection); 
-            cmd.ExecuteNonQuery(); 
+
+            var query = "DELETE FROM Cart WHERE ID = @id";
+            using var cmd = new SqliteCommand(query, connection);
+            cmd.Parameters.AddWithValue("@id", cartId);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public void ClearCart()
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            var query = "DELETE FROM Cart";
+            using var cmd = new SqliteCommand(query, connection);
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

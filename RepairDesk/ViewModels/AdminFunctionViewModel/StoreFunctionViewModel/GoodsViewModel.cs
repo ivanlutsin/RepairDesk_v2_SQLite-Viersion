@@ -105,4 +105,17 @@ public class GoodsViewModel : ReactiveObject
         if (SelectedProduct == product)
             SelectedProduct = null;
     }
+
+    public void RefreshProducts()
+    {
+        var updatedProducts = _db.LoadProducts();
+    
+        Products.Clear();
+        foreach (var product in updatedProducts)
+        {
+            Products.Add(product);
+        }
+        
+        this.RaisePropertyChanged(nameof(Products));
+    }
 }
