@@ -11,7 +11,7 @@ public partial class AdminWindow : Window
     private AdminOrders _adminOrdersPage;
     private Store _storePage;
     private Engineers _engineersPage;
-    private Devices _devicesPage;
+    private AdminFunction.Devices _devicesPage;
     private Finance _financePage;
     private Notes_Phone _notesPhonePage;
 
@@ -66,7 +66,7 @@ public partial class AdminWindow : Window
     private void DeviceClick(object sender, RoutedEventArgs e)
     {
         if (_devicesPage == null)
-            _devicesPage = new Devices();
+            _devicesPage = new AdminFunction.Devices();
 
         MainContentArea.Content = _devicesPage;
     }

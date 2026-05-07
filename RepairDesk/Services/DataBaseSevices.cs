@@ -348,5 +348,59 @@ VALUES (@productId, @name, @qty, @price)";
 
             cmd.ExecuteNonQuery();
         }
+        
+        public ObservableCollection<DeviceItem> LoadDevices()
+        {
+            var devices = new ObservableCollection<DeviceItem>();
+            using var connection = GetConnection();
+            connection.Open();
+    
+            var query = "SELECT ID, Device_Type, Brand, Model FROM Devices";
+            using var cmd = new SqliteCommand(query, connection);
+            using var reader = cmd.ExecuteReader();
+    
+            while (reader.Read())
+            {
+                devices.Add(new DeviceItem()
+                {
+                    ID = reader.GetInt32(0),
+                    Device_Type = reader.GetString(1),
+                    Brand = reader.GetString(2),
+                    Model = reader.GetString(3)
+                });
+            }
+            return devices;
+        } 
+        
+        // Добавить устройство
+        public void AddDevice(DeviceItem device)
+        {
+            using var connection = GetConnection();
+            connection.Open();
+    
+            var query = @"
+        INSERT INTO Devices (Device_Type, Brand, Model)
+        VALUES (@type, @brand, @model);
+        SELECT last_insert_rowid();";
+    
+            using var cmd = new SqliteCommand(query, connection);
+            cmd.Parameters.AddWithValue("@type", device.Device_Type);
+            cmd.Parameters.AddWithValue("@brand", device.Brand);
+            cmd.Parameters.AddWithValue("@model", device.Model);
+    
+            device.ID = Convert.ToInt32(cmd.ExecuteScalar());
+        }
+        
+        // Удалить устройство
+        public void DeleteDevice(int deviceId)
+        {
+            using var connection = GetConnection();
+            connection.Open();
+    
+            var query = "DELETE FROM Devices WHERE ID = @id";
+            using var cmd = new SqliteCommand(query, connection);
+            cmd.Parameters.AddWithValue("@id", deviceId);
+            cmd.ExecuteNonQuery();
+        }
     }
 }

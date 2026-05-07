@@ -2,7 +2,73 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adminFunctionViewModel="clr-namespace:RepairDesk.ViewModels.AdminFunctionViewModel"
+        xmlns:models="clr-namespace:RepairDesk.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="RepairDesk.Views.AdminFunction.Devices">
-   Устройства
+        x:Class="RepairDesk.Views.AdminFunction.Devices"
+        x:DataType="models:DeviceItem">
+   
+        <Design.DataContext>
+        <adminFunctionViewModel:DevicesViewModel/>
+        </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Управление устройствами" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+        
+        <!-- Форма добавления -->
+        <Border Grid.Row="1" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Добавить устройство" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <Grid ColumnDefinitions="*, *, *">
+                    <TextBox Grid.Column="0" Watermark="Тип устройства" Text="{Binding NewDevice.Device_Type}" Margin="0,0,5,0"/>
+                    <TextBox Grid.Column="1" Watermark="Бренд" Text="{Binding NewDevice.Brand}" Margin="5,0,5,0"/>
+                    <TextBox Grid.Column="2" Watermark="Модель" Text="{Binding NewDevice.Model}" Margin="5,0,0,0"/>
+                </Grid>
+                <Button Content="Сохранить устройство" Command="{Binding AddDeviceCommand}" 
+                        HorizontalContentAlignment="Center" Width="200" Margin="0,15,0,0"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Список устройств -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="10">
+            <ItemsControl ItemsSource="{Binding Devices}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,3" Padding="10">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="15">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Тип устройства" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Device_Type}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Бренд" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Brand}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Модель" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Model}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button Grid.Column="1" Content="Удалить" 
+                                        Click="DeleteDevice_Click"
+                                        CommandParameter="{Binding}"
+                                        HorizontalContentAlignment="Center"
+                                        Width="100"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
