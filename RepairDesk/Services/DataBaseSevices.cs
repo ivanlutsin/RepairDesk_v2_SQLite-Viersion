@@ -402,5 +402,113 @@ VALUES (@productId, @name, @qty, @price)";
             cmd.Parameters.AddWithValue("@id", deviceId);
             cmd.ExecuteNonQuery();
         }
+        
+        
+        
+        public ObservableCollection<PhoneBookItem> LoadPhoneBook()
+{
+    var items = new ObservableCollection<PhoneBookItem>();
+    using var connection = GetConnection();
+    connection.Open();
+    
+    var query = "SELECT ID, FullName, PhoneNumber, Comment FROM PhoneBook ORDER BY FullName";
+    using var cmd = new SqliteCommand(query, connection);
+    using var reader = cmd.ExecuteReader();
+    
+    while (reader.Read())
+    {
+        items.Add(new PhoneBookItem
+        {
+            ID = reader.GetInt32(0),
+            FullName = reader.GetString(1),
+            PhoneNumber = reader.GetString(2),
+            Comment = reader.GetString(3)
+        });
+    }
+    return items;
+}
+
+// Добавить запись
+public void AddPhoneBookItem(PhoneBookItem item)
+{
+    using var connection = GetConnection();
+    connection.Open();
+    
+    var query = @"
+        INSERT INTO PhoneBook (FullName, PhoneNumber, Comment)
+        VALUES (@name, @phone, @comment);
+        SELECT last_insert_rowid();";
+    
+    using var cmd = new SqliteCommand(query, connection);
+    cmd.Parameters.AddWithValue("@name", item.FullName);
+    cmd.Parameters.AddWithValue("@phone", item.PhoneNumber);
+    cmd.Parameters.AddWithValue("@comment", item.Comment ?? "");
+    
+    item.ID = Convert.ToInt32(cmd.ExecuteScalar());
+}
+
+// Обновить запись
+public void UpdatePhoneBookItem(PhoneBookItem item)
+{
+    using var connection = GetConnection();
+    connection.Open();
+    
+    var query = @"
+        UPDATE PhoneBook 
+        SET FullName = @name,
+            PhoneNumber = @phone,
+            Comment = @comment
+        WHERE ID = @id";
+    
+    using var cmd = new SqliteCommand(query, connection);
+    cmd.Parameters.AddWithValue("@name", item.FullName);
+    cmd.Parameters.AddWithValue("@phone", item.PhoneNumber);
+    cmd.Parameters.AddWithValue("@comment", item.Comment ?? "");
+    cmd.Parameters.AddWithValue("@id", item.ID);
+    
+    cmd.ExecuteNonQuery();
+}
+
+// Удалить запись
+public void DeletePhoneBookItem(int id)
+{
+    using var connection = GetConnection();
+    connection.Open();
+    
+    var query = "DELETE FROM PhoneBook WHERE ID = @id";
+    using var cmd = new SqliteCommand(query, connection);
+    cmd.Parameters.AddWithValue("@id", id);
+    cmd.ExecuteNonQuery();
+} 
+public void AddClientToPhoneBookIfNotExists(string fullName, string phoneNumber, string comment = "")
+{
+    if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(phoneNumber))
+        return;
+    
+    using var connection = GetConnection();
+    connection.Open();
+    
+    // Проверяем, есть ли уже такой номер
+    var checkQuery = "SELECT COUNT(*) FROM PhoneBook WHERE PhoneNumber = @phone";
+    using var checkCmd = new SqliteCommand(checkQuery, connection);
+    checkCmd.Parameters.AddWithValue("@phone", phoneNumber);
+    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+    
+    if (count == 0)
+    {
+        var insertQuery = @"
+            INSERT INTO PhoneBook (FullName, PhoneNumber, Comment)
+            VALUES (@name, @phone, @comment)";
+        
+        using var insertCmd = new SqliteCommand(insertQuery, connection);
+        insertCmd.Parameters.AddWithValue("@name", fullName);
+        insertCmd.Parameters.AddWithValue("@phone", phoneNumber);
+        insertCmd.Parameters.AddWithValue("@comment", string.IsNullOrEmpty(comment) 
+            ? "Автоматически добавлен из заказа" : comment);
+        insertCmd.ExecuteNonQuery();
+        
+        Console.WriteLine($"[DB] Добавлен в телефонную книгу: {fullName} ({phoneNumber})");
+    }
+}
     }
 }

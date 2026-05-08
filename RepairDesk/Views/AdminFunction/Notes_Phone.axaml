@@ -2,7 +2,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:RepairDesk.ViewModels.AdminFunctionViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="RepairDesk.Views.AdminFunction.Notes_Phone">
-    Телефонная книга
+             x:Class="RepairDesk.Views.AdminFunction.Notes_Phone"
+             x:DataType="vm:Notes_PhoneViewModel">
+    <Design.DataContext>
+        <vm:Notes_PhoneViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Телефонная книга" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+
+        <!-- Форма добавления -->
+        <Border Grid.Row="1" Margin="10" CornerRadius="10" Background="#2A2A2A" Padding="15">
+            <StackPanel Spacing="10">
+                
+                <TextBlock Text="Добавить контакт" FontWeight="Bold" FontSize="16"/>
+                
+                <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto">
+                    
+                    <TextBox Grid.Row="0" Grid.Column="0" Watermark="ФИО" 
+                             Text="{Binding NewItem.FullName}" Margin="0,0,5,5"/>
+                    
+                    <MaskedTextBox Grid.Row="0" Grid.Column="1" Watermark="Телефон" 
+                                   Mask="+7 000 000 00 00"
+                                   Text="{Binding NewItem.PhoneNumber}" Margin="5,0,5,5"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="2" Content="Добавить" 
+                            Command="{Binding AddCommand}"
+                            Background="#4CAF50" Margin="5,0,0,5"/>
+                    
+                    <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Watermark="Комментарий (модель телефона, проблема, адрес...)" 
+                             Text="{Binding NewItem.Comment}" Margin="0,5,0,0"/>
+                    
+                </Grid>
+                
+            </StackPanel>
+        </Border>
+
+        <!-- Список контактов -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="10">
+            <ItemsControl ItemsSource="{Binding PhoneBook}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,3" CornerRadius="8" Background="#2A2A2A" Padding="10"
+                                Tag="{Binding}">
+                            
+                            <Grid ColumnDefinitions="*, Auto, Auto">
+                                
+                                <!-- Левая часть: ФИО + телефон -->
+                                <StackPanel Grid.Column="0" Spacing="3">
+                                    <TextBlock Text="{Binding FullName}" FontWeight="Bold" FontSize="14"
+                                               Foreground="#FFFFFF"/>
+                                    <TextBlock Text="{Binding PhoneNumber}" FontSize="12" 
+                                               Foreground="#81C784"/>
+                                    <TextBlock Text="{Binding Comment}" FontSize="11" 
+                                               Foreground="#B0BEC5" IsVisible="{Binding Comment, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                </StackPanel>
+                                
+                                <!-- Правая часть: кнопки -->
+                                <Button Grid.Column="1" Content="Редактировать" 
+                                        Click="EditContact_Click"
+                                        CommandParameter="{Binding}"
+                                        Width="150"
+                                        Margin="0,0,5,0"
+                                        VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Center"/>
+                                
+                                <Grid Grid.Column="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Button Grid.Column="1" Content="Удалить" 
+                                            Click="DeleteContact_Click"
+                                            CommandParameter="{Binding}"
+                                            Width="100"
+                                            Margin="2,0,0,0"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
