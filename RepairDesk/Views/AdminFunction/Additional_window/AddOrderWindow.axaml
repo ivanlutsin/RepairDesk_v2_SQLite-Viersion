@@ -17,14 +17,23 @@
             <MaskedTextBox x:Name="PhoneBox" Mask="+7 000 000 00 00"/>
 
             <!-- Устройство -->
-            <TextBlock Text="Устройство"/>
-            <TextBox x:Name="DeviceBox"/>
+            <TextBlock Text="Тип устройства"/>
+            <ComboBox x:Name="TypeComboBox"
+                      Width="150"
+                      ItemsSource="{Binding DeviceTypes}"
+                      SelectedItem="{Binding SelectedDeviceType}"/>
             
             <TextBlock Text="Бренд"/>
-            <TextBox x:Name="BrandBox"/>
+            <ComboBox x:Name="BrandComboBox"
+                      Width="150"
+                      ItemsSource="{Binding Brands}"
+                      SelectedItem="{Binding SelectedBrand}"/>
             
             <TextBlock Text="Модель"/>
-            <TextBox x:Name="ModelBox"/>
+            <ComboBox x:Name="ModelComboBox"
+                      Width="150"
+                      ItemsSource="{Binding Models}"
+                      SelectedItem="{Binding SelectedModel}"/>
             
             <TextBlock Text="Серийный номер"/>
             <TextBox x:Name="SerialBox"/>

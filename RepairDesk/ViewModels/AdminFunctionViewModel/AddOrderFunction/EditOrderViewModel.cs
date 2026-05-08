@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using RepairDesk.Models;
 using YourApp.Services;
@@ -15,8 +16,11 @@ public class EditOrderViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+    
     private readonly DatabaseService _db = new();
+    private List<DeviceItem> _allDevices = new();
 
+    private Orders? _selectedOrder;
     public Orders? SelectedOrder
     {
         get => _selectedOrder;
@@ -24,10 +28,16 @@ public class EditOrderViewModel : INotifyPropertyChanged
         {
             _selectedOrder = value;
             OnPropertyChanged();
-            OnPropertyChanged(nameof(SelectedStatus));
+            if (value != null)
+            {
+                // При выборе заказа подставляем старые данные
+                SelectedDeviceType = value.DeviceType;
+                SelectedBrand = value.Brand;
+                SelectedModel = value.Model;
+                SelectedStatus = value.RepairsStatus;
+            }
         }
     }
-    
     
     public List<string> Status { get; } = new()
     {
@@ -38,27 +48,99 @@ public class EditOrderViewModel : INotifyPropertyChanged
         "Отменён",
     };
     
-    
+    private string _selectedStatus;
     public string SelectedStatus
     {
-        get => SelectedOrder?.RepairsStatus;
+        get => _selectedStatus;
         set
         {
+            _selectedStatus = value;
             if (SelectedOrder != null)
-            {
                 SelectedOrder.RepairsStatus = value;
-                OnPropertyChanged();
-            }
+            OnPropertyChanged();
         }
     }
 
-    public ObservableCollection<Orders> Orders { get; set; } = new ();
-
-    private Orders? _selectedOrder;
-
+    public ObservableCollection<Orders> Orders { get; set; } = new();
+    
+    // Для ComboBox устройств
+    private ObservableCollection<string> _deviceTypes = new();
+    public ObservableCollection<string> DeviceTypes
+    {
+        get => _deviceTypes;
+        set
+        {
+            _deviceTypes = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private ObservableCollection<string> _brands = new();
+    public ObservableCollection<string> Brands
+    {
+        get => _brands;
+        set
+        {
+            _brands = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private ObservableCollection<string> _models = new();
+    public ObservableCollection<string> Models
+    {
+        get => _models;
+        set
+        {
+            _models = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private string _selectedDeviceType;
+    public string SelectedDeviceType
+    {
+        get => _selectedDeviceType;
+        set
+        {
+            _selectedDeviceType = value;
+            if (SelectedOrder != null)
+                SelectedOrder.DeviceType = value;
+            OnPropertyChanged();
+            UpdateBrands();
+        }
+    }
+    
+    private string _selectedBrand;
+    public string SelectedBrand
+    {
+        get => _selectedBrand;
+        set
+        {
+            _selectedBrand = value;
+            if (SelectedOrder != null)
+                SelectedOrder.Brand = value;
+            OnPropertyChanged();
+            UpdateModels();
+        }
+    }
+    
+    private string _selectedModel;
+    public string SelectedModel
+    {
+        get => _selectedModel;
+        set
+        {
+            _selectedModel = value;
+            if (SelectedOrder != null)
+                SelectedOrder.Model = value;
+            OnPropertyChanged();
+        }
+    }
 
     public EditOrderViewModel()
     {
+        LoadDevices();
         LoadOrders();
     }
 
@@ -93,10 +175,59 @@ public class EditOrderViewModel : INotifyPropertyChanged
                 RepairsStatus = reader.GetString(reader.GetOrdinal("RepairsStatus")),
             });
         }
-        Console.WriteLine(Orders.Count);
-        Console.WriteLine("Status" + SelectedOrder?.RepairsStatus);
     }
-
+    
+    private void LoadDevices()
+    {
+        _allDevices = _db.LoadDevices().ToList();
+        
+        DeviceTypes = new ObservableCollection<string>(
+            _allDevices.Select(d => d.Device_Type).Distinct().OrderBy(t => t)
+        );
+    }
+    
+    private void UpdateBrands()
+    {
+        if (string.IsNullOrEmpty(SelectedDeviceType))
+        {
+            Brands.Clear();
+        }
+        else
+        {
+            var brandsList = _allDevices
+                .Where(d => d.Device_Type == SelectedDeviceType)
+                .Select(d => d.Brand)
+                .Distinct()
+                .OrderBy(b => b)
+                .ToList();
+            
+            Brands.Clear();
+            foreach (var brand in brandsList)
+                Brands.Add(brand);
+        }
+    }
+    
+    private void UpdateModels()
+    {
+        if (string.IsNullOrEmpty(SelectedDeviceType) || string.IsNullOrEmpty(SelectedBrand))
+        {
+            Models.Clear();
+        }
+        else
+        {
+            var modelsList = _allDevices
+                .Where(d => d.Device_Type == SelectedDeviceType && d.Brand == SelectedBrand)
+                .Select(d => d.Model)
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+            
+            Models.Clear();
+            foreach (var model in modelsList)
+                Models.Add(model);
+        }
+    }
+    
     public void Save()
     {
         if (SelectedOrder == null)
@@ -122,14 +253,13 @@ public class EditOrderViewModel : INotifyPropertyChanged
 
         cmd.Parameters.AddWithValue("$client", SelectedOrder.ClientFullName);
         cmd.Parameters.AddWithValue("$phone", SelectedOrder.PhoneNumber);
-        cmd.Parameters.AddWithValue("$device", SelectedOrder.DeviceType);
-        cmd.Parameters.AddWithValue("$brand", SelectedOrder.Brand);
-        cmd.Parameters.AddWithValue("$model", SelectedOrder.Model);
+        cmd.Parameters.AddWithValue("$device", SelectedDeviceType);
+        cmd.Parameters.AddWithValue("$brand", SelectedBrand);
+        cmd.Parameters.AddWithValue("$model", SelectedModel);
         cmd.Parameters.AddWithValue("$problem", SelectedOrder.ProblemDescription);
         cmd.Parameters.AddWithValue("$id", SelectedOrder.ID);
-        cmd.Parameters.AddWithValue("$status", SelectedOrder.RepairsStatus);
+        cmd.Parameters.AddWithValue("$status", SelectedStatus);
 
         cmd.ExecuteNonQuery();
     }
 }
-     

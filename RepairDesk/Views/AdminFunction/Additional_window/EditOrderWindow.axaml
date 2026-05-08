@@ -38,20 +38,20 @@
                 <MaskedTextBox Text="{Binding SelectedOrder.PhoneNumber}" Mask="+7 000 000 00 00"/>
             </StackPanel>
             
-            <StackPanel>
-                <TextBlock Text="Тип устройства"/>
-                <TextBox Text="{Binding SelectedOrder.DeviceType}"/>
-            </StackPanel>
-            
-            <StackPanel>
-                <TextBlock Text="Бренд"/>
-                <TextBox Text="{Binding SelectedOrder.Brand}"/>
-            </StackPanel>
-            
-            <StackPanel>
-                <TextBlock Text="Модель"/>
-                <TextBox Text="{Binding SelectedOrder.Model}"/>
-            </StackPanel>
+            <TextBlock Text="Тип устройства" FontWeight="Bold"/>
+            <ComboBox x:Name="TypeComboBox"
+                      ItemsSource="{Binding DeviceTypes}"
+                      SelectedItem="{Binding SelectedDeviceType}"/>
+                
+            <TextBlock Text="Бренд" FontWeight="Bold"/>
+            <ComboBox x:Name="BrandComboBox"
+                      ItemsSource="{Binding Brands}"
+                      SelectedItem="{Binding SelectedBrand}"/>
+                
+            <TextBlock Text="Модель" FontWeight="Bold"/>
+            <ComboBox x:Name="ModelComboBox"
+                      ItemsSource="{Binding Models}"
+                      SelectedItem="{Binding SelectedModel}"/>
             
             <StackPanel>
                 <TextBlock Text="Описание неисправности со слов клиента"/>
