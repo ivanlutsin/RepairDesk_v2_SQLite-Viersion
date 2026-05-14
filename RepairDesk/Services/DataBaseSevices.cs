@@ -171,83 +171,83 @@ CREATE TABLE IF NOT EXISTS Sales (
             cmd.ExecuteNonQuery();
         }
 
-        public bool SellProduct(Products product, int quantity = 1) 
-        { 
+        public bool SellProduct(Products product, int quantity = 1)
+        {
             Console.WriteLine($"[DB] SellProduct: {product.ProductName}, ID={product.ID}, Qty={quantity}");
-            if (product.Quantity < quantity) 
-            { 
-                Console.WriteLine($"[DB] Недостаточно товара: есть {product.Quantity}, нужно {quantity}"); 
-                return false; 
+            if (product.Quantity < quantity)
+            {
+                Console.WriteLine($"[DB] Недостаточно товара: есть {product.Quantity}, нужно {quantity}");
+                return false;
             }
-    
-    
+
+
             using var connection = GetConnection();
-    
+
             connection.Open();
-    
-    
+
+
             using var tx = connection.BeginTransaction();
-    
-    
+
+
             try
-            { 
+            {
                 // 1. Уменьшаем количество в Products
-        
-                var updateQuery = "UPDATE Products SET Quantity = Quantity - @qty WHERE ID = @id"; 
-                using var updateCmd = new SqliteCommand(updateQuery, connection); 
-                updateCmd.Parameters.AddWithValue("@qty", quantity); 
-                updateCmd.Parameters.AddWithValue("@id", product.ID); 
-                int rows = updateCmd.ExecuteNonQuery(); 
+
+                var updateQuery = "UPDATE Products SET Quantity = Quantity - @qty WHERE ID = @id";
+                using var updateCmd = new SqliteCommand(updateQuery, connection);
+                updateCmd.Parameters.AddWithValue("@qty", quantity);
+                updateCmd.Parameters.AddWithValue("@id", product.ID);
+                int rows = updateCmd.ExecuteNonQuery();
                 Console.WriteLine($"[DB] Products updated: {rows} rows");
-                
+
                 // 2. Добавляем в корзину
-                var checkQuery = "SELECT ID, Quantity FROM Cart WHERE ProductID = @productId"; 
-                using var checkCmd = new SqliteCommand(checkQuery, connection); 
+                var checkQuery = "SELECT ID, Quantity FROM Cart WHERE ProductID = @productId";
+                using var checkCmd = new SqliteCommand(checkQuery, connection);
                 checkCmd.Parameters.AddWithValue("@productId", product.ID);
-                
-                using var reader = checkCmd.ExecuteReader(); 
-                if (reader.Read()) 
+
+                using var reader = checkCmd.ExecuteReader();
+                if (reader.Read())
                 {
-            
-                    int cartId = reader.GetInt32(0); 
-                    int newQty = reader.GetInt32(1) + quantity; 
-                    var updateCartQuery = "UPDATE Cart SET Quantity = @qty WHERE ID = @id"; 
-                    using var updateCartCmd = new SqliteCommand(updateCartQuery, connection); 
-                    updateCartCmd.Parameters.AddWithValue("@qty", newQty); 
-                    updateCartCmd.Parameters.AddWithValue("@id", cartId); 
-                    updateCartCmd.ExecuteNonQuery(); 
-                    Console.WriteLine($"[DB] Cart updated: new quantity={newQty}"); 
+
+                    int cartId = reader.GetInt32(0);
+                    int newQty = reader.GetInt32(1) + quantity;
+                    var updateCartQuery = "UPDATE Cart SET Quantity = @qty WHERE ID = @id";
+                    using var updateCartCmd = new SqliteCommand(updateCartQuery, connection);
+                    updateCartCmd.Parameters.AddWithValue("@qty", newQty);
+                    updateCartCmd.Parameters.AddWithValue("@id", cartId);
+                    updateCartCmd.ExecuteNonQuery();
+                    Console.WriteLine($"[DB] Cart updated: new quantity={newQty}");
                 }
-                else 
+                else
                 {
-            // Вставляем новый товар в корзину
-            
-            var insertQuery = @"INSERT INTO Cart (ProductID, ProductName, Quantity, Price)            
-VALUES (@productId, @name, @qty, @price)"; 
-            using var insertCmd = new SqliteCommand(insertQuery, connection);
-            insertCmd.Parameters.AddWithValue("@productId", product.ID);
-            insertCmd.Parameters.AddWithValue("@name", product.ProductName);
-            insertCmd.Parameters.AddWithValue("@qty", quantity);
-            insertCmd.Parameters.AddWithValue("@price", product.Price);
-            insertCmd.ExecuteNonQuery();
-            Console.WriteLine($"[DB] New item added to cart"); 
+                    // Вставляем новый товар в корзину
+
+                    var insertQuery = @"INSERT INTO Cart (ProductID, ProductName, Quantity, Price)            
+VALUES (@productId, @name, @qty, @price)";
+                    using var insertCmd = new SqliteCommand(insertQuery, connection);
+                    insertCmd.Parameters.AddWithValue("@productId", product.ID);
+                    insertCmd.Parameters.AddWithValue("@name", product.ProductName);
+                    insertCmd.Parameters.AddWithValue("@qty", quantity);
+                    insertCmd.Parameters.AddWithValue("@price", product.Price);
+                    insertCmd.ExecuteNonQuery();
+                    Console.WriteLine($"[DB] New item added to cart");
                 }
-                
+
                 tx.Commit();
-        
-        // Обновляем объект в памяти
-        
-        product.Quantity -= quantity; 
-        Console.WriteLine($"[DB] Success! New quantity: {product.Quantity}");
-        
-        return true; 
+
+                // Обновляем объект в памяти
+
+                product.Quantity -= quantity;
+                Console.WriteLine($"[DB] Success! New quantity: {product.Quantity}");
+
+                return true;
             }
-            catch (Exception ex) 
-            { 
-                Console.WriteLine($"[DB] ERROR: {ex.Message}"); 
-                tx.Rollback(); 
-                return false; 
-            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB] ERROR: {ex.Message}");
+                tx.Rollback();
+                return false;
+            }
         }
 
         // ================= CART =================
@@ -348,17 +348,17 @@ VALUES (@productId, @name, @qty, @price)";
 
             cmd.ExecuteNonQuery();
         }
-        
+
         public ObservableCollection<DeviceItem> LoadDevices()
         {
             var devices = new ObservableCollection<DeviceItem>();
             using var connection = GetConnection();
             connection.Open();
-    
+
             var query = "SELECT ID, Device_Type, Brand, Model FROM Devices";
             using var cmd = new SqliteCommand(query, connection);
             using var reader = cmd.ExecuteReader();
-    
+
             while (reader.Read())
             {
                 devices.Add(new DeviceItem()
@@ -369,146 +369,150 @@ VALUES (@productId, @name, @qty, @price)";
                     Model = reader.GetString(3)
                 });
             }
+
             return devices;
-        } 
-        
+        }
+
         // Добавить устройство
         public void AddDevice(DeviceItem device)
         {
             using var connection = GetConnection();
             connection.Open();
-    
+
             var query = @"
         INSERT INTO Devices (Device_Type, Brand, Model)
         VALUES (@type, @brand, @model);
         SELECT last_insert_rowid();";
-    
+
             using var cmd = new SqliteCommand(query, connection);
             cmd.Parameters.AddWithValue("@type", device.Device_Type);
             cmd.Parameters.AddWithValue("@brand", device.Brand);
             cmd.Parameters.AddWithValue("@model", device.Model);
-    
+
             device.ID = Convert.ToInt32(cmd.ExecuteScalar());
         }
-        
+
         // Удалить устройство
         public void DeleteDevice(int deviceId)
         {
             using var connection = GetConnection();
             connection.Open();
-    
+
             var query = "DELETE FROM Devices WHERE ID = @id";
             using var cmd = new SqliteCommand(query, connection);
             cmd.Parameters.AddWithValue("@id", deviceId);
             cmd.ExecuteNonQuery();
         }
-        
-        
-        
+
+
+
         public ObservableCollection<PhoneBookItem> LoadPhoneBook()
-{
-    var items = new ObservableCollection<PhoneBookItem>();
-    using var connection = GetConnection();
-    connection.Open();
-    
-    var query = "SELECT ID, FullName, PhoneNumber, Comment FROM PhoneBook ORDER BY FullName";
-    using var cmd = new SqliteCommand(query, connection);
-    using var reader = cmd.ExecuteReader();
-    
-    while (reader.Read())
-    {
-        items.Add(new PhoneBookItem
         {
-            ID = reader.GetInt32(0),
-            FullName = reader.GetString(1),
-            PhoneNumber = reader.GetString(2),
-            Comment = reader.GetString(3)
-        });
-    }
-    return items;
-}
+            var items = new ObservableCollection<PhoneBookItem>();
+            using var connection = GetConnection();
+            connection.Open();
+
+            var query = "SELECT ID, FullName, PhoneNumber, Comment FROM PhoneBook ORDER BY FullName";
+            using var cmd = new SqliteCommand(query, connection);
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                items.Add(new PhoneBookItem
+                {
+                    ID = reader.GetInt32(0),
+                    FullName = reader.GetString(1),
+                    PhoneNumber = reader.GetString(2),
+                    Comment = reader.GetString(3)
+                });
+            }
+
+            return items;
+        }
 
 // Добавить запись
-public void AddPhoneBookItem(PhoneBookItem item)
-{
-    using var connection = GetConnection();
-    connection.Open();
-    
-    var query = @"
+        public void AddPhoneBookItem(PhoneBookItem item)
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            var query = @"
         INSERT INTO PhoneBook (FullName, PhoneNumber, Comment)
         VALUES (@name, @phone, @comment);
         SELECT last_insert_rowid();";
-    
-    using var cmd = new SqliteCommand(query, connection);
-    cmd.Parameters.AddWithValue("@name", item.FullName);
-    cmd.Parameters.AddWithValue("@phone", item.PhoneNumber);
-    cmd.Parameters.AddWithValue("@comment", item.Comment ?? "");
-    
-    item.ID = Convert.ToInt32(cmd.ExecuteScalar());
-}
+
+            using var cmd = new SqliteCommand(query, connection);
+            cmd.Parameters.AddWithValue("@name", item.FullName);
+            cmd.Parameters.AddWithValue("@phone", item.PhoneNumber);
+            cmd.Parameters.AddWithValue("@comment", item.Comment ?? "");
+
+            item.ID = Convert.ToInt32(cmd.ExecuteScalar());
+        }
 
 // Обновить запись
-public void UpdatePhoneBookItem(PhoneBookItem item)
-{
-    using var connection = GetConnection();
-    connection.Open();
-    
-    var query = @"
+        public void UpdatePhoneBookItem(PhoneBookItem item)
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            var query = @"
         UPDATE PhoneBook 
         SET FullName = @name,
             PhoneNumber = @phone,
             Comment = @comment
         WHERE ID = @id";
-    
-    using var cmd = new SqliteCommand(query, connection);
-    cmd.Parameters.AddWithValue("@name", item.FullName);
-    cmd.Parameters.AddWithValue("@phone", item.PhoneNumber);
-    cmd.Parameters.AddWithValue("@comment", item.Comment ?? "");
-    cmd.Parameters.AddWithValue("@id", item.ID);
-    
-    cmd.ExecuteNonQuery();
-}
+
+            using var cmd = new SqliteCommand(query, connection);
+            cmd.Parameters.AddWithValue("@name", item.FullName);
+            cmd.Parameters.AddWithValue("@phone", item.PhoneNumber);
+            cmd.Parameters.AddWithValue("@comment", item.Comment ?? "");
+            cmd.Parameters.AddWithValue("@id", item.ID);
+
+            cmd.ExecuteNonQuery();
+        }
 
 // Удалить запись
-public void DeletePhoneBookItem(int id)
-{
-    using var connection = GetConnection();
-    connection.Open();
-    
-    var query = "DELETE FROM PhoneBook WHERE ID = @id";
-    using var cmd = new SqliteCommand(query, connection);
-    cmd.Parameters.AddWithValue("@id", id);
-    cmd.ExecuteNonQuery();
-} 
-public void AddClientToPhoneBookIfNotExists(string fullName, string phoneNumber, string comment = "")
-{
-    if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(phoneNumber))
-        return;
-    
-    using var connection = GetConnection();
-    connection.Open();
-    
-    // Проверяем, есть ли уже такой номер
-    var checkQuery = "SELECT COUNT(*) FROM PhoneBook WHERE PhoneNumber = @phone";
-    using var checkCmd = new SqliteCommand(checkQuery, connection);
-    checkCmd.Parameters.AddWithValue("@phone", phoneNumber);
-    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-    
-    if (count == 0)
-    {
-        var insertQuery = @"
+        public void DeletePhoneBookItem(int id)
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            var query = "DELETE FROM PhoneBook WHERE ID = @id";
+            using var cmd = new SqliteCommand(query, connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void AddClientToPhoneBookIfNotExists(string fullName, string phoneNumber, string comment = "")
+        {
+            if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(phoneNumber))
+                return;
+
+            using var connection = GetConnection();
+            connection.Open();
+
+            // Проверяем, есть ли уже такой номер
+            var checkQuery = "SELECT COUNT(*) FROM PhoneBook WHERE PhoneNumber = @phone";
+            using var checkCmd = new SqliteCommand(checkQuery, connection);
+            checkCmd.Parameters.AddWithValue("@phone", phoneNumber);
+            int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+            if (count == 0)
+            {
+                var insertQuery = @"
             INSERT INTO PhoneBook (FullName, PhoneNumber, Comment)
             VALUES (@name, @phone, @comment)";
-        
-        using var insertCmd = new SqliteCommand(insertQuery, connection);
-        insertCmd.Parameters.AddWithValue("@name", fullName);
-        insertCmd.Parameters.AddWithValue("@phone", phoneNumber);
-        insertCmd.Parameters.AddWithValue("@comment", string.IsNullOrEmpty(comment) 
-            ? "Автоматически добавлен из заказа" : comment);
-        insertCmd.ExecuteNonQuery();
-        
-        Console.WriteLine($"[DB] Добавлен в телефонную книгу: {fullName} ({phoneNumber})");
-    }
-}
+
+                using var insertCmd = new SqliteCommand(insertQuery, connection);
+                insertCmd.Parameters.AddWithValue("@name", fullName);
+                insertCmd.Parameters.AddWithValue("@phone", phoneNumber);
+                insertCmd.Parameters.AddWithValue("@comment", string.IsNullOrEmpty(comment)
+                    ? "Автоматически добавлен из заказа"
+                    : comment);
+                insertCmd.ExecuteNonQuery();
+
+                Console.WriteLine($"[DB] Добавлен в телефонную книгу: {fullName} ({phoneNumber})");
+            }
+        }
     }
 }
