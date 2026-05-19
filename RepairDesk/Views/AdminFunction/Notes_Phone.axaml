@@ -21,7 +21,7 @@
         <TextBlock Grid.Row="0" Text="Телефонная книга" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
 
         <!-- Форма добавления -->
-        <Border Grid.Row="1" Margin="10" CornerRadius="10" Background="#2A2A2A" Padding="15">
+        <Border Grid.Row="1" Margin="10" CornerRadius="10" Padding="15">
             <StackPanel Spacing="10">
                 
                 <TextBlock Text="Добавить контакт" FontWeight="Bold" FontSize="16"/>
@@ -36,8 +36,7 @@
                                    Text="{Binding NewItem.PhoneNumber}" Margin="5,0,5,5"/>
                     
                     <Button Grid.Row="0" Grid.Column="2" Content="Добавить" 
-                            Command="{Binding AddCommand}"
-                            Background="#4CAF50" Margin="5,0,0,5"/>
+                            Command="{Binding AddCommand}" Margin="5,0,0,5"/>
                     
                     <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Watermark="Комментарий (модель телефона, проблема, адрес...)" 
                              Text="{Binding NewItem.Comment}" Margin="0,5,0,0"/>
@@ -52,7 +51,7 @@
             <ItemsControl ItemsSource="{Binding PhoneBook}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="0,3" CornerRadius="8" Background="#2A2A2A" Padding="10"
+                        <Border Margin="0,3" CornerRadius="8" Padding="10"
                                 Tag="{Binding}">
                             
                             <Grid ColumnDefinitions="*, Auto, Auto">
