@@ -58,12 +58,9 @@
                                 
                                 <!-- Левая часть: ФИО + телефон -->
                                 <StackPanel Grid.Column="0" Spacing="3">
-                                    <TextBlock Text="{Binding FullName}" FontWeight="Bold" FontSize="14"
-                                               Foreground="#FFFFFF"/>
-                                    <TextBlock Text="{Binding PhoneNumber}" FontSize="12" 
-                                               Foreground="#81C784"/>
-                                    <TextBlock Text="{Binding Comment}" FontSize="11" 
-                                               Foreground="#B0BEC5" IsVisible="{Binding Comment, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                    <TextBlock Text="{Binding FullName}" FontWeight="Bold" FontSize="14"/>
+                                    <TextBlock Text="{Binding PhoneNumber}" FontSize="12"/>
+                                    <TextBlock Text="{Binding Comment}" FontSize="11" IsVisible="{Binding Comment, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                                 </StackPanel>
                                 
                                 <!-- Правая часть: кнопки -->

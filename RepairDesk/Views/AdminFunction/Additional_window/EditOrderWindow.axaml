@@ -14,7 +14,7 @@
 
         <StackPanel Margin="10" Orientation="Horizontal">
             
-            <TextBlock Text="ФИО Заказчика" Margin="0 6 5 0"/>
+            <TextBlock Text="ФИО Заказчика *" Margin="0 6 5 0"/>
             <StackPanel>
                 <ComboBox ItemsSource="{Binding Orders}"
                           SelectedItem="{Binding SelectedOrder}" Width="150">

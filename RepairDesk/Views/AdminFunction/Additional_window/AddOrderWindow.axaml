@@ -10,36 +10,36 @@
         <StackPanel Spacing="8" Margin="10">
 
             <!-- Клиент -->
-            <TextBlock Text="ФИО Клиента"/>
+            <TextBlock Text="ФИО Клиента *"/>
             <TextBox x:Name="ClientNameBox"/>
             
-            <TextBlock Text="Номер телефона клиента"/>
+            <TextBlock Text="Номер телефона клиента *"/>
             <MaskedTextBox x:Name="PhoneBox" Mask="+7 000 000 00 00"/>
 
             <!-- Устройство -->
-            <TextBlock Text="Тип устройства"/>
+            <TextBlock Text="Тип устройства *"/>
             <ComboBox x:Name="TypeComboBox"
                       Width="150"
                       ItemsSource="{Binding DeviceTypes}"
                       SelectedItem="{Binding SelectedDeviceType}"/>
             
-            <TextBlock Text="Бренд"/>
+            <TextBlock Text="Бренд *"/>
             <ComboBox x:Name="BrandComboBox"
                       Width="150"
                       ItemsSource="{Binding Brands}"
                       SelectedItem="{Binding SelectedBrand}"/>
             
-            <TextBlock Text="Модель"/>
+            <TextBlock Text="Модель *"/>
             <ComboBox x:Name="ModelComboBox"
                       Width="150"
                       ItemsSource="{Binding Models}"
                       SelectedItem="{Binding SelectedModel}"/>
             
-            <TextBlock Text="Серийный номер"/>
+            <TextBlock Text="Серийный номер *"/>
             <TextBox x:Name="SerialBox"/>
 
             <!-- Ремонт -->
-            <TextBlock Text="Описание неисправности со слов клиента"/>
+            <TextBlock Text="Описание неисправности со слов клиента *"/>
             <TextBox x:Name="ProblemBox"/>
             
             <TextBlock Text="Примерная дата окончания ремонта (опц.)"/>
