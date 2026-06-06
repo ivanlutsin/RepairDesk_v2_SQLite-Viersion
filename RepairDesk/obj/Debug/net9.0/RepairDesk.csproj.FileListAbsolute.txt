@@ -137,3 +137,10 @@ D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\xunit.runner.visualstudio.tes
 D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\xunit.assert.dll
 D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\xunit.core.dll
 D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\xunit.execution.dotnet.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\DocumentFormat.OpenXml.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\DocumentFormat.OpenXml.Framework.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\System.IO.Packaging.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\ColorTextBlock.Avalonia.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\DialogHost.Avalonia.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\Markdown.Avalonia.dll
+D:\Software\RepairDesk\RepairDesk\bin\Debug\net9.0\MsBox.Avalonia.dll

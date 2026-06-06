@@ -342,6 +342,18 @@
           }
         }
       },
+      "ColorTextBlock.Avalonia/11.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.0.0"
+        },
+        "compile": {
+          "lib/net6.0/ColorTextBlock.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/ColorTextBlock.Avalonia.dll": {}
+        }
+      },
       "Dapper/2.1.72": {
         "type": "package",
         "compile": {
@@ -351,6 +363,55 @@
         },
         "runtime": {
           "lib/net8.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DialogHost.Avalonia/0.7.7": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.0.0",
+          "System.Reactive": "6.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/DialogHost.Avalonia.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/DialogHost.Avalonia.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml/3.5.1": {
+        "type": "package",
+        "dependencies": {
+          "DocumentFormat.OpenXml.Framework": "3.5.1"
+        },
+        "compile": {
+          "lib/net8.0/DocumentFormat.OpenXml.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DocumentFormat.OpenXml.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml.Framework/3.5.1": {
+        "type": "package",
+        "dependencies": {
+          "System.IO.Packaging": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
             "related": ".xml"
           }
         }
@@ -492,6 +553,33 @@
             "assetType": "native",
             "rid": "win-x86"
           }
+        }
+      },
+      "Markdown.Avalonia.Tight/11.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.0.0",
+          "ColorTextBlock.Avalonia": "11.0.2"
+        },
+        "compile": {
+          "lib/net6.0/Markdown.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Markdown.Avalonia.dll": {}
+        }
+      },
+      "MessageBox.Avalonia/3.1.6": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.0.5",
+          "DialogHost.Avalonia": "0.7.7",
+          "Markdown.Avalonia.Tight": "11.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/MsBox.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MsBox.Avalonia.dll": {}
         }
       },
       "MicroCom.Runtime/0.11.0": {
@@ -1206,6 +1294,22 @@
           "lib/net8.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
+      "System.IO.Packaging/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "System.IO.Pipelines/8.0.0": {
         "type": "package",
         "compile": {
@@ -1810,6 +1914,21 @@
         "lib/netstandard2.0/Avalonia.X11.xml"
       ]
     },
+    "ColorTextBlock.Avalonia/11.0.2": {
+      "sha512": "MsWu5aAbDpstAmJ+TTSgC6Q7YdjKB7Na912GMr3oWl9ag8TH2HNpglzgo+kIAuB4C4wswKfrzhso4UcpvgMuHg==",
+      "type": "package",
+      "path": "colortextblock.avalonia/11.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "colortextblock.avalonia.11.0.2.nupkg.sha512",
+        "colortextblock.avalonia.nuspec",
+        "lib/net461/ColorTextBlock.Avalonia.dll",
+        "lib/net6.0/ColorTextBlock.Avalonia.dll",
+        "lib/netcoreapp2.0/ColorTextBlock.Avalonia.dll",
+        "lib/netstandard2.0/ColorTextBlock.Avalonia.dll"
+      ]
+    },
     "Dapper/2.1.72": {
       "sha512": "ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
       "type": "package",
@@ -1829,6 +1948,73 @@
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml",
         "readme.md"
+      ]
+    },
+    "DialogHost.Avalonia/0.7.7": {
+      "sha512": "V5zq0e6dBeK1A8xDsyNouzfSx3d+aOhxPgjguaFyaDexgDF8WiSQDsawkv0fRGKbDnaPIqMk9m7P/2G5c7HPzw==",
+      "type": "package",
+      "path": "dialoghost.avalonia/0.7.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "dialoghost.avalonia.0.7.7.nupkg.sha512",
+        "dialoghost.avalonia.nuspec",
+        "icon.png",
+        "lib/netstandard2.0/DialogHost.Avalonia.dll",
+        "lib/netstandard2.0/DialogHost.Avalonia.xml"
+      ]
+    },
+    "DocumentFormat.OpenXml/3.5.1": {
+      "sha512": "zxdOf5VVCe/uNklbRhj8dVBzQGj3DoqkUuqOp9cAZVuN8mNYDjof1lvSQA2OQNr8Ptc9d7pbA7Azq/ReaI3FpA==",
+      "type": "package",
+      "path": "documentformat.openxml/3.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "documentformat.openxml.3.5.1.nupkg.sha512",
+        "documentformat.openxml.nuspec",
+        "icon.png",
+        "lib/net10.0/DocumentFormat.OpenXml.dll",
+        "lib/net10.0/DocumentFormat.OpenXml.xml",
+        "lib/net35/DocumentFormat.OpenXml.dll",
+        "lib/net35/DocumentFormat.OpenXml.xml",
+        "lib/net40/DocumentFormat.OpenXml.dll",
+        "lib/net40/DocumentFormat.OpenXml.xml",
+        "lib/net46/DocumentFormat.OpenXml.dll",
+        "lib/net46/DocumentFormat.OpenXml.xml",
+        "lib/net8.0/DocumentFormat.OpenXml.dll",
+        "lib/net8.0/DocumentFormat.OpenXml.xml",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.dll",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.xml"
+      ]
+    },
+    "DocumentFormat.OpenXml.Framework/3.5.1": {
+      "sha512": "U5txtc3ORno73xQx9Lf2gWzfaSZnZwKHfLkTAslhlew9lxe5XbUiCt0dY1fHeAf8yRqszUAe5i/+xLC9R/Xfsw==",
+      "type": "package",
+      "path": "documentformat.openxml.framework/3.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "documentformat.openxml.framework.3.5.1.nupkg.sha512",
+        "documentformat.openxml.framework.nuspec",
+        "icon.png",
+        "lib/net10.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net10.0/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net35/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net35/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net40/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net40/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net46/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net46/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net6.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net6.0/DocumentFormat.OpenXml.Framework.xml",
+        "lib/net8.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/net8.0/DocumentFormat.OpenXml.Framework.xml",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.Framework.dll",
+        "lib/netstandard2.0/DocumentFormat.OpenXml.Framework.xml"
       ]
     },
     "DynamicData/9.4.1": {
@@ -2013,6 +2199,35 @@
         "runtimes/win-arm64/native/libHarfBuzzSharp.dll",
         "runtimes/win-x64/native/libHarfBuzzSharp.dll",
         "runtimes/win-x86/native/libHarfBuzzSharp.dll"
+      ]
+    },
+    "Markdown.Avalonia.Tight/11.0.2": {
+      "sha512": "Ylg0EkSUId42dVUFQvU7UJGWcKiJ+g7TesRe/KCzUYzlypWf1lTiVveT2j60QSldCtuAw3o/aEOEjIahMdRGig==",
+      "type": "package",
+      "path": "markdown.avalonia.tight/11.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Markdown.Avalonia.Tight.md",
+        "lib/net461/Markdown.Avalonia.dll",
+        "lib/net6.0/Markdown.Avalonia.dll",
+        "lib/netcoreapp2.0/Markdown.Avalonia.dll",
+        "lib/netstandard2.0/Markdown.Avalonia.dll",
+        "markdown.avalonia.tight.11.0.2.nupkg.sha512",
+        "markdown.avalonia.tight.nuspec"
+      ]
+    },
+    "MessageBox.Avalonia/3.1.6": {
+      "sha512": "0nkXkFoh2d95HnC+/oeC8wcOMti4z+jmRMjYRw+ulrnFlhGzLURthII6VdZOHpG3m0kP7UWn1lkiDaYvft8TJg==",
+      "type": "package",
+      "path": "messagebox.avalonia/3.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.jpg",
+        "lib/netstandard2.0/MsBox.Avalonia.dll",
+        "messagebox.avalonia.3.1.6.nupkg.sha512",
+        "messagebox.avalonia.nuspec"
       ]
     },
     "MicroCom.Runtime/0.11.0": {
@@ -2981,6 +3196,35 @@
         "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
+    "System.IO.Packaging/8.0.1": {
+      "sha512": "KYkIOAvPexQOLDxPO2g0BVoWInnQhPpkFzRqvNrNrMhVT6kqhVr0zEb6KCHlptLFukxnZrjuMVAnxK7pOGUYrw==",
+      "type": "package",
+      "path": "system.io.packaging/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.IO.Packaging.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.IO.Packaging.targets",
+        "lib/net462/System.IO.Packaging.dll",
+        "lib/net462/System.IO.Packaging.xml",
+        "lib/net6.0/System.IO.Packaging.dll",
+        "lib/net6.0/System.IO.Packaging.xml",
+        "lib/net7.0/System.IO.Packaging.dll",
+        "lib/net7.0/System.IO.Packaging.xml",
+        "lib/net8.0/System.IO.Packaging.dll",
+        "lib/net8.0/System.IO.Packaging.xml",
+        "lib/netstandard2.0/System.IO.Packaging.dll",
+        "lib/netstandard2.0/System.IO.Packaging.xml",
+        "system.io.packaging.8.0.1.nupkg.sha512",
+        "system.io.packaging.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.IO.Pipelines/8.0.0": {
       "sha512": "FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA==",
       "type": "package",
@@ -3291,6 +3535,8 @@
       "Avalonia.Fonts.Inter >= 11.3.12",
       "Avalonia.Themes.Fluent >= 11.3.12",
       "Dapper >= 2.1.72",
+      "DocumentFormat.OpenXml >= 3.5.1",
+      "MessageBox.Avalonia >= 3.1.6",
       "Microsoft.Data.Sqlite >= 11.0.0-preview.2.26159.112",
       "Microsoft.EntityFrameworkCore >= 9.0.11",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.11",
@@ -3371,6 +3617,14 @@
           "Dapper": {
             "target": "Package",
             "version": "[2.1.72, )"
+          },
+          "DocumentFormat.OpenXml": {
+            "target": "Package",
+            "version": "[3.5.1, )"
+          },
+          "MessageBox.Avalonia": {
+            "target": "Package",
+            "version": "[3.1.6, )"
           },
           "Microsoft.Data.Sqlite": {
             "target": "Package",

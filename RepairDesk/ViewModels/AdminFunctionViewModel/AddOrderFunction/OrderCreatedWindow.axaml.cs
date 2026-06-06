@@ -23,6 +23,8 @@ public partial class OrderCreatedWindow : Window
 
     private void PrintAddOrderClck(object? sender, RoutedEventArgs e)
     {
-        // заглушка
+        var vm = new OrderCreatedViewModel();
+
+        vm.PrintReceptionActAsync(_orderId, this);
     }
 }

@@ -15,6 +15,8 @@
           "Avalonia.Fonts.Inter": "11.3.12",
           "Avalonia.Themes.Fluent": "11.3.12",
           "Dapper": "2.1.72",
+          "DocumentFormat.OpenXml": "3.5.1",
+          "MessageBox.Avalonia": "3.1.6",
           "Microsoft.Data.Sqlite": "11.0.0-preview.2.26159.112",
           "Microsoft.EntityFrameworkCore": "9.0.11",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.11",
@@ -270,11 +272,56 @@
           }
         }
       },
+      "ColorTextBlock.Avalonia/11.0.2": {
+        "dependencies": {
+          "Avalonia": "11.3.12"
+        },
+        "runtime": {
+          "lib/net6.0/ColorTextBlock.Avalonia.dll": {
+            "assemblyVersion": "11.0.2.0",
+            "fileVersion": "11.0.2.0"
+          }
+        }
+      },
       "Dapper/2.1.72": {
         "runtime": {
           "lib/net8.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.1.72.10375"
+          }
+        }
+      },
+      "DialogHost.Avalonia/0.7.7": {
+        "dependencies": {
+          "Avalonia": "11.3.12",
+          "System.Reactive": "7.0.0-preview.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DialogHost.Avalonia.dll": {
+            "assemblyVersion": "0.7.7.0",
+            "fileVersion": "0.7.7.0"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml/3.5.1": {
+        "dependencies": {
+          "DocumentFormat.OpenXml.Framework": "3.5.1"
+        },
+        "runtime": {
+          "lib/net8.0/DocumentFormat.OpenXml.dll": {
+            "assemblyVersion": "3.5.1.0",
+            "fileVersion": "3.5.1.0"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml.Framework/3.5.1": {
+        "dependencies": {
+          "System.IO.Packaging": "8.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
+            "assemblyVersion": "3.5.1.0",
+            "fileVersion": "3.5.1.0"
           }
         }
       },
@@ -386,6 +433,31 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Markdown.Avalonia.Tight/11.0.2": {
+        "dependencies": {
+          "Avalonia": "11.3.12",
+          "ColorTextBlock.Avalonia": "11.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/Markdown.Avalonia.dll": {
+            "assemblyVersion": "11.0.2.0",
+            "fileVersion": "11.0.2.0"
+          }
+        }
+      },
+      "MessageBox.Avalonia/3.1.6": {
+        "dependencies": {
+          "Avalonia": "11.3.12",
+          "DialogHost.Avalonia": "0.7.7",
+          "Markdown.Avalonia.Tight": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MsBox.Avalonia.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -931,6 +1003,14 @@
           }
         }
       },
+      "System.IO.Packaging/8.0.1": {
+        "runtime": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1024.46610"
+          }
+        }
+      },
       "System.IO.Pipelines/8.0.0": {},
       "System.Memory/4.6.3": {},
       "System.Reactive/7.0.0-preview.1": {
@@ -1126,12 +1206,40 @@
       "path": "avalonia.x11/11.3.12",
       "hashPath": "avalonia.x11.11.3.12.nupkg.sha512"
     },
+    "ColorTextBlock.Avalonia/11.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MsWu5aAbDpstAmJ+TTSgC6Q7YdjKB7Na912GMr3oWl9ag8TH2HNpglzgo+kIAuB4C4wswKfrzhso4UcpvgMuHg==",
+      "path": "colortextblock.avalonia/11.0.2",
+      "hashPath": "colortextblock.avalonia.11.0.2.nupkg.sha512"
+    },
     "Dapper/2.1.72": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
       "path": "dapper/2.1.72",
       "hashPath": "dapper.2.1.72.nupkg.sha512"
+    },
+    "DialogHost.Avalonia/0.7.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V5zq0e6dBeK1A8xDsyNouzfSx3d+aOhxPgjguaFyaDexgDF8WiSQDsawkv0fRGKbDnaPIqMk9m7P/2G5c7HPzw==",
+      "path": "dialoghost.avalonia/0.7.7",
+      "hashPath": "dialoghost.avalonia.0.7.7.nupkg.sha512"
+    },
+    "DocumentFormat.OpenXml/3.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zxdOf5VVCe/uNklbRhj8dVBzQGj3DoqkUuqOp9cAZVuN8mNYDjof1lvSQA2OQNr8Ptc9d7pbA7Azq/ReaI3FpA==",
+      "path": "documentformat.openxml/3.5.1",
+      "hashPath": "documentformat.openxml.3.5.1.nupkg.sha512"
+    },
+    "DocumentFormat.OpenXml.Framework/3.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U5txtc3ORno73xQx9Lf2gWzfaSZnZwKHfLkTAslhlew9lxe5XbUiCt0dY1fHeAf8yRqszUAe5i/+xLC9R/Xfsw==",
+      "path": "documentformat.openxml.framework/3.5.1",
+      "hashPath": "documentformat.openxml.framework.3.5.1.nupkg.sha512"
     },
     "DynamicData/9.4.1": {
       "type": "package",
@@ -1174,6 +1282,20 @@
       "sha512": "sha512-UsJtQsfAJoFDZrXc4hCUfRPMqccfKZ0iumJ/upcUjz/cmsTgVFGNEL5yaJWmkqsuFYdMWbj/En5/kS4PFl9hBA==",
       "path": "harfbuzzsharp.nativeassets.win32/8.3.1.1",
       "hashPath": "harfbuzzsharp.nativeassets.win32.8.3.1.1.nupkg.sha512"
+    },
+    "Markdown.Avalonia.Tight/11.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ylg0EkSUId42dVUFQvU7UJGWcKiJ+g7TesRe/KCzUYzlypWf1lTiVveT2j60QSldCtuAw3o/aEOEjIahMdRGig==",
+      "path": "markdown.avalonia.tight/11.0.2",
+      "hashPath": "markdown.avalonia.tight.11.0.2.nupkg.sha512"
+    },
+    "MessageBox.Avalonia/3.1.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0nkXkFoh2d95HnC+/oeC8wcOMti4z+jmRMjYRw+ulrnFlhGzLURthII6VdZOHpG3m0kP7UWn1lkiDaYvft8TJg==",
+      "path": "messagebox.avalonia/3.1.6",
+      "hashPath": "messagebox.avalonia.3.1.6.nupkg.sha512"
     },
     "MicroCom.Runtime/0.11.0": {
       "type": "package",
@@ -1426,6 +1548,13 @@
       "sha512": "sha512-RQIliDp47mQxGYNcBB6W+ezHbegkImrSZVTuWjQCSTTl3pQ37Q3rALkkkdTAMEmcIz71PEOCqNZMp7lXCnVqEQ==",
       "path": "sqlitepclraw.provider.e_sqlite3/3.0.2",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.3.0.2.nupkg.sha512"
+    },
+    "System.IO.Packaging/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KYkIOAvPexQOLDxPO2g0BVoWInnQhPpkFzRqvNrNrMhVT6kqhVr0zEb6KCHlptLFukxnZrjuMVAnxK7pOGUYrw==",
+      "path": "system.io.packaging/8.0.1",
+      "hashPath": "system.io.packaging.8.0.1.nupkg.sha512"
     },
     "System.IO.Pipelines/8.0.0": {
       "type": "package",
